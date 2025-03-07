@@ -1,0 +1,47 @@
+{
+    "type": "object",
+    "properties": {
+        "customer__id": {
+            "type": ["string", "null"]
+        },
+        "ad_group__id": {
+            "type": ["string", "null"]
+        },
+        "campaign__id": {
+            "type": ["string", "null"]
+        },
+        "metrics__clicks": {
+            "type": ["string", "null"]
+        },
+        "metrics__conversions": {
+            "type": ["number", "null"]
+        },
+        "metrics__conversions_value": {
+            "type": ["number", "null"]
+        },
+        "metrics__cost_micros": {
+            "type": ["string", "null"]
+        },
+        "metrics__impressions": {
+            "type": ["string", "null"]
+        },
+        "search_term_view__search_term": {
+            "type": ["string", "null"]
+        },
+        "segments__keyword__ad_group_criterion": {
+            "type": ["string", "null"]
+        },
+        "segments__keyword__info__match_type": {
+            "type": ["string", "null"]
+        },
+        "segments__keyword__info__text": {
+            "type": ["string", "null"]
+        },
+        "segments__search_term_match_type": {
+            "type": ["string", "null"]
+        },
+        "segments__date": {
+            "type": ["string", "null"]
+        }
+    }
+} 

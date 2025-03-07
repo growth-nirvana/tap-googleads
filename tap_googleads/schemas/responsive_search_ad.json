@@ -1,0 +1,35 @@
+{
+    "type": "object",
+    "properties": {
+        "customer__id": {
+            "type": ["string", "null"]
+        },
+        "ad_group__id": {
+            "type": ["string", "null"]
+        },
+        "ad_group_ad__ad__id": {
+            "type": ["string", "null"]
+        },
+        "ad_group_ad__ad__responsive_search_ad__descriptions": {
+            "type": ["array", "null"],
+            "items": {
+                "type": ["object", "null"]
+            }
+        },
+        "ad_group_ad__ad__responsive_search_ad__headlines": {
+            "type": ["array", "null"],
+            "items": {
+                "type": ["object", "null"]
+            }
+        },
+        "ad_group_ad__ad__responsive_search_ad__path1": {
+            "type": ["string", "null"]
+        },
+        "ad_group_ad__ad__responsive_search_ad__path2": {
+            "type": ["string", "null"]
+        },
+        "segments__date": {
+            "type": ["string", "null"]
+        }
+    }
+} 
