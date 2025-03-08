@@ -1,38 +1,38 @@
 {
     "type": "object",
     "properties": {
-        "customer__id": {
-            "type": ["string", "null"]
-        },
-        "ad_group__id": {
-            "type": ["string", "null"]
-        },
-        "ad_group_ad__ad__id": {
-            "type": ["string", "null"]
-        },
-        "ad_group_ad__ad__expanded_text_ad__description": {
-            "type": ["string", "null"]
-        },
-        "ad_group_ad__ad__expanded_text_ad__description2": {
-            "type": ["string", "null"]
-        },
-        "ad_group_ad__ad__expanded_text_ad__headline_part1": {
-            "type": ["string", "null"]
-        },
-        "ad_group_ad__ad__expanded_text_ad__headline_part2": {
-            "type": ["string", "null"]
-        },
-        "ad_group_ad__ad__expanded_text_ad__headline_part3": {
-            "type": ["string", "null"]
-        },
-        "ad_group_ad__ad__expanded_text_ad__path1": {
-            "type": ["string", "null"]
-        },
-        "ad_group_ad__ad__expanded_text_ad__path2": {
-            "type": ["string", "null"]
-        },
-        "segments__date": {
-            "type": ["string", "null"]
-        }
+      "customer__id": {
+        "type": ["string", "null"]
+      },
+      "campaign__id": {
+        "type": ["string", "null"]
+      },
+      "adGroup__id": {
+        "type": ["string", "null"]
+      },
+      "adGroupAd__ad__id": {
+        "type": ["string", "null"]
+      },
+      "adGroupAd__ad__expandedTextAd__description": {
+        "type": ["string", "null"]
+      },
+      "adGroupAd__ad__expandedTextAd__description2": {
+        "type": ["string", "null"]
+      },
+      "adGroupAd__ad__expandedTextAd__headlinePart1": {
+        "type": ["string", "null"]
+      },
+      "adGroupAd__ad__expandedTextAd__headlinePart2": {
+        "type": ["string", "null"]
+      },
+      "adGroupAd__ad__expandedTextAd__headlinePart3": {
+        "type": ["string", "null"]
+      },
+      "adGroupAd__ad__expandedTextAd__path1": {
+        "type": ["string", "null"]
+      },
+      "adGroupAd__ad__expandedTextAd__path2": {
+        "type": ["string", "null"]
+      }
     }
-} 
+  }

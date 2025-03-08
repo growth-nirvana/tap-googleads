@@ -609,6 +609,34 @@ class DemoRegionCustomConversionsStream(ReportsStream):
     replication_key = None
     schema_filepath = SCHEMAS_DIR / "demo_region_custom_conversions.json"
 
+class ExpandedTextAdStream(ReportsStream):
+    """Define custom stream for expanded text ads."""
+
+    @property
+    def gaql(self):
+        return f"""
+        select
+          customer.id,
+          campaign.id,
+          ad_group.id,
+          ad_group_ad.ad.id,
+          ad_group_ad.ad.expanded_text_ad.description,
+          ad_group_ad.ad.expanded_text_ad.description2,
+          ad_group_ad.ad.expanded_text_ad.headline_part1,
+          ad_group_ad.ad.expanded_text_ad.headline_part2,
+          ad_group_ad.ad.expanded_text_ad.headline_part3,
+          ad_group_ad.ad.expanded_text_ad.path1,
+          ad_group_ad.ad.expanded_text_ad.path2
+        from
+          ad_group_ad
+        """
+
+    records_jsonpath = "$.results[*]"
+    name = "stream_expanded_text_ad"
+    primary_keys = ["customer__id", "campaign__id", "adGroup__id", "adGroupAd__ad__id"]
+    replication_key = None
+    schema_filepath = SCHEMAS_DIR / "expanded_text_ad.json"
+
 class KeywordReportsStream(ReportsStream):
     """Define custom stream."""
 
