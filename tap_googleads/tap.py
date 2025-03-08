@@ -40,6 +40,7 @@ from tap_googleads.streams import (
     KeywordReportsStream,
     KeywordReportCustomConversionsStream,
     MetroReportStream,
+    MetroReportCustomConversionsStream,
 )
 
 STREAM_TYPES = [
@@ -75,6 +76,7 @@ STREAM_TYPES = [
     KeywordReportsStream,
     KeywordReportCustomConversionsStream,
     MetroReportStream,
+    MetroReportCustomConversionsStream,
 ]
 
 CUSTOMER_ID_TYPE = th.StringType()

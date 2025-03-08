@@ -728,6 +728,37 @@ class MetroReportStream(ReportsStream):
     replication_key = None
     schema_filepath = SCHEMAS_DIR / "metro_report.json"
 
+class MetroReportCustomConversionsStream(ReportsStream):
+    """Define custom stream for metro-level conversion reporting."""
+
+    @property
+    def gaql(self):
+        return f"""
+        select
+          customer.id,
+          ad_group.id,
+          campaign.id,
+          geographic_view.resource_name,
+          geographic_view.country_criterion_id,
+          geographic_view.location_type,
+          metrics.conversions,
+          metrics.conversions_value,
+          metrics.all_conversions,
+          metrics.all_conversions_value,
+          segments.conversion_action_name,
+          segments.geo_target_metro,
+          segments.date
+        from
+          geographic_view
+        WHERE segments.date >= {self.start_date} and segments.date <= {self.end_date}
+        """
+
+    records_jsonpath = "$.results[*]"
+    name = "stream_metro_report_custom_conversions"
+    primary_keys = ["customer__id", "campaign__id", "adGroup__id", "geographicView__countryCriterionId", "segments__date", "segments__conversionActionName", "geographicView__locationType", "segments__geoTargetMetro"]
+    replication_key = None
+    schema_filepath = SCHEMAS_DIR / "metro_report_custom_conversions.json"
+
 class KeywordReportsStream(ReportsStream):
     """Define custom stream."""
 
