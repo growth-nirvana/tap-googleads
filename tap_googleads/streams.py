@@ -580,6 +580,35 @@ class DemoRegionStream(ReportsStream):
     replication_key = None
     schema_filepath = SCHEMAS_DIR / "demo_region.json"
 
+class DemoRegionCustomConversionsStream(ReportsStream):
+    """Define custom stream for region-level conversion reporting."""
+
+    @property
+    def gaql(self):
+        return f"""
+        SELECT
+          geographic_view.country_criterion_id,
+          segments.date,
+          segments.geo_target_region,
+          segments.conversion_action_name,
+          metrics.all_conversions,
+          metrics.all_conversions_value,
+          metrics.conversions,
+          metrics.conversions_value,
+          metrics.view_through_conversions,
+          customer.id,
+          campaign.id
+        FROM
+          geographic_view
+        WHERE segments.date >= {self.start_date} and segments.date <= {self.end_date}
+        """
+
+    records_jsonpath = "$.results[*]"
+    name = "stream_demo_region_custom_conversions"
+    primary_keys = ["customer__id", "campaign__id", "segments__date", "geographicView__countryCriterionId", "segments__conversionActionName", "segments__geoTargetRegion"]
+    replication_key = None
+    schema_filepath = SCHEMAS_DIR / "demo_region_custom_conversions.json"
+
 class KeywordReportsStream(ReportsStream):
     """Define custom stream."""
 
