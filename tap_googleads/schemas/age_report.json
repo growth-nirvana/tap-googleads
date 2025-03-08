@@ -1,38 +1,44 @@
 {
     "type": "object",
     "properties": {
-        "customer__id": {
-            "type": ["string", "null"]
-        },
-        "ad_group__id": {
-            "type": ["string", "null"]
-        },
-        "ad_group_criterion__age_range__type": {
-            "type": ["string", "null"]
-        },
-        "ad_group_criterion__criterion_id": {
-            "type": ["string", "null"]
-        },
-        "campaign__id": {
-            "type": ["string", "null"]
-        },
-        "metrics__clicks": {
-            "type": ["string", "null"]
-        },
-        "metrics__conversions": {
-            "type": ["number", "null"]
-        },
-        "metrics__conversions_value": {
-            "type": ["number", "null"]
-        },
-        "metrics__impressions": {
-            "type": ["string", "null"]
-        },
-        "metrics__cost_micros": {
-            "type": ["string", "null"]
-        },
-        "segments__date": {
-            "type": ["string", "null"]
-        }
+      "customer__id": {
+        "type": ["string", "null"]
+      },
+      "adGroup__id": {
+        "type": ["string", "null"]
+      },
+      "adGroupCriterion__ageRange__type": {
+        "type": ["string", "null"]
+      },
+      "adGroupCriterion__criterionId": {
+        "type": ["string", "null"]
+      },
+      "campaign__id": {
+        "type": ["string", "null"]
+      },
+      "metrics__clicks": {
+        "type": ["string", "integer", "null"],
+        "format": "integer-string"
+      },
+      "metrics__conversions": {
+        "type": ["string", "number", "null"],
+        "format": "number-string"
+      },
+      "metrics__conversionsValue": {
+        "type": ["string", "number", "null"],
+        "format": "number-string"
+      },
+      "metrics__impressions": {
+        "type": ["string", "integer", "null"],
+        "format": "integer-string"
+      },
+      "metrics__costMicros": {
+        "type": ["string", "integer", "null"],
+        "format": "integer-string"
+      },
+      "segments__date": {
+        "type": ["string", "null"],
+        "format": "date"
+      }
     }
-} 
+  }

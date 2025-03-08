@@ -698,6 +698,34 @@ class AdGroupsPerformance(ReportsStream):
     replication_key = None
     schema_filepath = SCHEMAS_DIR / "adgroups_performance.json"
 
+class AgeReportStream(ReportsStream):
+    """Age Report"""
+
+    @property
+    def gaql(self):
+        return f"""
+        SELECT
+            customer.id,
+            ad_group.id,
+            ad_group_criterion.age_range.type,
+            ad_group_criterion.criterion_id,
+            campaign.id,
+            metrics.clicks,
+            metrics.conversions,
+            metrics.conversions_value,
+            metrics.impressions,
+            metrics.cost_micros,
+            segments.date
+        FROM
+            age_range_view
+        WHERE segments.date >= {self.start_date} and segments.date <= {self.end_date}
+        """
+
+    records_jsonpath = "$.results[*]"
+    name = "stream_age_report"
+    primary_keys = ["customer__id", "adGroup__id", "adGroupCriterion__ageRange__type", "campaign__id", "segments__date", "adGroupCriterion__criterionId"]
+    replication_key = None
+    schema_filepath = SCHEMAS_DIR / "age_report.json"
 
 class CampaignPerformance(ReportsStream):
     """Campaign Performance"""
