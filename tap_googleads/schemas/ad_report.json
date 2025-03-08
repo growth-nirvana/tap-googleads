@@ -4,103 +4,103 @@
         "customer__id": {
             "type": ["string", "null"]
         },
-        "ad_group__id": {
+        "adGroup__id": {
             "type": ["string", "null"]
         },
-        "ad_group__name": {
+        "adGroup__name": {
             "type": ["string", "null"]
         },
-        "ad_group__status": {
+        "adGroup__status": {
             "type": ["string", "null"]
         },
-        "ad_group_ad__ad__added_by_google_ads": {
+        "adGroupAd__ad__addedByGoogleAds": {
             "type": ["boolean", "null"]
         },
-        "ad_group_ad__ad__call_ad__description1": {
+        "adGroupAd__ad__callAd__description1": {
             "type": ["string", "null"]
         },
-        "ad_group_ad__ad__call_ad__description2": {
+        "adGroupAd__ad__callAd__description2": {
             "type": ["string", "null"]
         },
-        "ad_group_ad__ad__device_preference": {
+        "adGroupAd__ad__devicePreference": {
             "type": ["string", "null"]
         },
-        "ad_group_ad__ad__display_url": {
+        "adGroupAd__ad__displayUrl": {
             "type": ["string", "null"]
         },
-        "ad_group_ad__ad__expanded_text_ad__description": {
+        "adGroupAd__ad__expandedTextAd__description": {
             "type": ["string", "null"]
         },
-        "ad_group_ad__ad__expanded_text_ad__description2": {
+        "adGroupAd__ad__expandedTextAd__description2": {
             "type": ["string", "null"]
         },
-        "ad_group_ad__ad__expanded_text_ad__headline_part1": {
+        "adGroupAd__ad__expandedTextAd__headlinePart1": {
             "type": ["string", "null"]
         },
-        "ad_group_ad__ad__expanded_text_ad__headline_part2": {
+        "adGroupAd__ad__expandedTextAd__headlinePart2": {
             "type": ["string", "null"]
         },
-        "ad_group_ad__ad__expanded_text_ad__headline_part3": {
+        "adGroupAd__ad__expandedTextAd__headlinePart3": {
             "type": ["string", "null"]
         },
-        "ad_group_ad__ad__expanded_text_ad__path1": {
+        "adGroupAd__ad__expandedTextAd__path1": {
             "type": ["string", "null"]
         },
-        "ad_group_ad__ad__expanded_text_ad__path2": {
+        "adGroupAd__ad__expandedTextAd__path2": {
             "type": ["string", "null"]
         },
-        "ad_group_ad__ad__final_mobile_urls": {
+        "adGroupAd__ad__finalMobileUrls": {
             "type": ["array", "null"],
             "items": {
                 "type": ["string", "null"]
             }
         },
-        "ad_group_ad__ad__final_urls": {
+        "adGroupAd__ad__finalUrls": {
             "type": ["array", "null"],
             "items": {
                 "type": ["string", "null"]
             }
         },
-        "ad_group_ad__ad__id": {
+        "adGroupAd__ad__id": {
             "type": ["string", "null"]
         },
-        "ad_group_ad__ad__legacy_responsive_display_ad__call_to_action_text": {
+        "adGroupAd__ad__legacyResponsiveDisplayAd__callToActionText": {
             "type": ["string", "null"]
         },
-        "ad_group_ad__ad__legacy_responsive_display_ad__description": {
+        "adGroupAd__ad__legacyResponsiveDisplayAd__description": {
             "type": ["string", "null"]
         },
-        "ad_group_ad__ad__text_ad__description1": {
+        "adGroupAd__ad__textAd__description1": {
             "type": ["string", "null"]
         },
-        "ad_group_ad__ad__text_ad__description2": {
+        "adGroupAd__ad__textAd__description2": {
             "type": ["string", "null"]
         },
-        "ad_group_ad__ad__text_ad__headline": {
+        "adGroupAd__ad__textAd__headline": {
             "type": ["string", "null"]
         },
-        "ad_group_ad__ad__tracking_url_template": {
+        "adGroupAd__ad__trackingUrlTemplate": {
             "type": ["string", "null"]
         },
-        "ad_group_ad__ad__type": {
+        "adGroupAd__ad__type": {
             "type": ["string", "null"]
         },
-        "ad_group_ad__ad__url_custom_parameters": {
+        "adGroupAd__ad__urlCustomParameters": {
             "type": ["array", "null"],
             "items": {
                 "type": ["object", "null"]
             }
         },
-        "ad_group_ad__labels": {
+        "adGroupAd__labels": {
             "type": ["array", "null"],
             "items": {
                 "type": ["string", "null"]
             }
         },
-        "ad_group_ad__policy_summary__approval_status": {
+        "adGroupAd__policySummary__approvalStatus": {
             "type": ["string", "null"]
         },
-        "ad_group_ad__status": {
+        "adGroupAd__status": {
             "type": ["string", "null"]
         },
         "campaign__id": {
@@ -112,32 +112,32 @@
         "campaign__status": {
             "type": ["string", "null"]
         },
-        "metrics__all_conversions": {
-            "type": ["number", "null"]
+        "metrics__allConversions": {
+            "type": ["number", "null", "string"]
         },
-        "metrics__all_conversions_value": {
-            "type": ["number", "null"]
+        "metrics__allConversionsValue": {
+            "type": ["number", "null", "string"]
         },
         "metrics__clicks": {
-            "type": ["string", "null"]
+            "type": ["string", "null", "number"]
         },
         "metrics__conversions": {
-            "type": ["number", "null"]
+            "type": ["number", "null", "string"]
         },
-        "metrics__conversions_value": {
-            "type": ["number", "null"]
+        "metrics__conversionsValue": {
+            "type": ["number", "null", "string"]
         },
-        "metrics__cost_micros": {
-            "type": ["string", "null"]
+        "metrics__costMicros": {
+            "type": ["string", "null", "number"]
         },
         "metrics__impressions": {
-            "type": ["string", "null"]
+            "type": ["string", "null", "number"]
         },
-        "metrics__view_through_conversions": {
-            "type": ["number", "null"]
+        "metrics__viewThroughConversions": {
+            "type": ["number", "null", "string"]
         },
         "segments__date": {
             "type": ["string", "null"]
         }
     }
-} 
+}

@@ -11,6 +11,7 @@ from tap_googleads.streams import (
     AccessibleCustomers,
     AdGroupsPerformance,
     AdGroupsStream,
+    AdReportStream,
     AdStream,
     CampaignPerformance,
     CampaignPerformanceByAgeRangeAndDevice,
@@ -30,6 +31,7 @@ from tap_googleads.streams import (
 
 STREAM_TYPES = [
     AdStream,
+    AdReportStream,
     AdGroupsStream,
     AdGroupsPerformance,
     AccessibleCustomers,
