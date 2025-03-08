@@ -9,6 +9,7 @@ from singer_sdk.exceptions import ConfigValidationError
 
 from tap_googleads.streams import (
     AccessibleCustomers,
+    AccountsStream,
     AdGroupsPerformance,
     AdGroupsStream,
     AdReportStream,
@@ -20,14 +21,14 @@ from tap_googleads.streams import (
     CampaignPerformanceByAgeRangeAndDevice,
     CampaignPerformanceByGenderAndDevice,
     CampaignPerformanceByLocation,
-    AccountsStream,
     CampaignsStream,
     CampaignReportsStream,
     CampaignReportCustomConversionsStream,
-    KeywordReportsStream,
-    KeywordReportCustomConversionsStream,
+    CityReportStream,
     ClickViewReportStream,
     CustomerHierarchyStream,
+    KeywordReportsStream,
+    KeywordReportCustomConversionsStream,
     GeoPerformance,
     GeotargetsStream,
 )
@@ -41,6 +42,7 @@ STREAM_TYPES = [
     AccessibleCustomers,
     AgeReportStream,
     AgeReportCustomConversionsStream,
+    CityReportStream,
     CustomerHierarchyStream,
     AccountsStream,
     CampaignsStream,
