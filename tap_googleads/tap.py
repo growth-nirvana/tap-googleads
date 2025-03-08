@@ -34,10 +34,11 @@ from tap_googleads.streams import (
     DemoRegionCustomConversionsStream,
     ExpandedTextAdStream,
     GenderReportStream,
-    KeywordReportsStream,
-    KeywordReportCustomConversionsStream,
+    GenderReportCustomConversionsStream,
     GeoPerformance,
     GeotargetsStream,
+    KeywordReportsStream,
+    KeywordReportCustomConversionsStream,
 )
 
 STREAM_TYPES = [
@@ -67,10 +68,11 @@ STREAM_TYPES = [
     DemoRegionCustomConversionsStream,
     ExpandedTextAdStream,
     GenderReportStream,
-    KeywordReportsStream,
-    KeywordReportCustomConversionsStream,
+    GenderReportCustomConversionsStream,
     GeotargetsStream,
     GeoPerformance,
+    KeywordReportsStream,
+    KeywordReportCustomConversionsStream,
 ]
 
 CUSTOMER_ID_TYPE = th.StringType()
