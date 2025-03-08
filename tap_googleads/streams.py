@@ -521,6 +521,34 @@ class DemoDeviceStream(ReportsStream):
     replication_key = None
     schema_filepath = SCHEMAS_DIR / "demo_device.json"
 
+class DemoDeviceCustomConversionsStream(ReportsStream):
+    """Define custom stream for device-level campaign conversion reporting."""
+
+    @property
+    def gaql(self):
+        return f"""
+        SELECT
+          customer.id,
+          campaign.id,
+          segments.date,
+          segments.device,
+          segments.conversion_action_name,
+          metrics.all_conversions,
+          metrics.all_conversions_value,
+          metrics.conversions,
+          metrics.conversions_value,
+          metrics.view_through_conversions
+        FROM
+          campaign
+        WHERE segments.date >= {self.start_date} and segments.date <= {self.end_date}
+        """
+
+    records_jsonpath = "$.results[*]"
+    name = "stream_demo_device_custom_conversions"
+    primary_keys = ["customer__id", "campaign__id", "segments__date", "segments__device", "segments__conversionActionName"]
+    replication_key = None
+    schema_filepath = SCHEMAS_DIR / "demo_device_custom_conversions.json"
+
 class KeywordReportsStream(ReportsStream):
     """Define custom stream."""
 
