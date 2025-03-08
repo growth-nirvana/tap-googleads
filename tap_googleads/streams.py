@@ -512,6 +512,37 @@ class KeywordReportCustomConversionsStream(ReportsStream):
     replication_key = None
     schema_filepath = SCHEMAS_DIR / "keyword_report_custom_conversions.json"
 
+class AdStream(ReportsStream):
+    """Stream for basic ad information from Google Ads."""
+    
+    
+    @property
+    def gaql(self):
+        query = """
+        SELECT
+            customer.id,
+            ad_group_ad.ad.id,
+            ad_group.id,
+            ad_group_ad.ad.display_url,
+            ad_group_ad.ad.final_app_urls,
+            ad_group_ad.ad.final_mobile_urls,
+            ad_group_ad.ad.final_url_suffix,
+            ad_group_ad.ad.final_urls,
+            ad_group_ad.ad.name,
+            ad_group_ad.status,
+            ad_group_ad.ad.tracking_url_template,
+            ad_group_ad.ad.type
+        FROM
+            ad_group_ad
+        """
+        return query
+
+    records_jsonpath = "$.results[*]"
+    name = "stream_ad"
+    primary_keys = ["customer__id", "adGroupAd__ad__id", "adGroup__id"]
+    replication_key = None
+    schema_filepath = SCHEMAS_DIR / "ad.json"
+
 class AdGroupsStream(ReportsStream):
     """Define custom stream."""
 

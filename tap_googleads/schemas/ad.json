@@ -4,80 +4,47 @@
         "customer__id": {
             "type": ["string", "null"]
         },
-        "ad_group_ad__ad__id": {
+        "adGroup__id": {
             "type": ["string", "null"]
         },
-        "ad_group__id": {
+        "adGroupAd__ad__id": {
             "type": ["string", "null"]
         },
-        "ad_group_ad__action_items": {
+        "adGroupAd__ad__displayUrl": {
+            "type": ["string", "null"]
+        },
+        "adGroupAd__ad__finalAppUrls": {
             "type": ["array", "null"],
             "items": {
                 "type": ["string", "null"]
             }
         },
-        "ad_group_ad__ad_strength": {
-            "type": ["string", "null"]
-        },
-        "ad_group_ad__ad__added_by_google_ads": {
-            "type": ["boolean", "null"]
-        },
-        "ad_group_ad__ad__device_preference": {
-            "type": ["string", "null"]
-        },
-        "ad_group_ad__ad__display_url": {
-            "type": ["string", "null"]
-        },
-        "ad_group_ad__ad__final_app_urls": {
+        "adGroupAd__ad__finalMobileUrls": {
             "type": ["array", "null"],
             "items": {
                 "type": ["string", "null"]
             }
         },
-        "ad_group_ad__ad__final_mobile_urls": {
+        "adGroupAd__ad__finalUrlSuffix": {
+            "type": ["string", "null"]
+        },
+        "adGroupAd__ad__finalUrls": {
             "type": ["array", "null"],
             "items": {
                 "type": ["string", "null"]
             }
         },
-        "ad_group_ad__ad__final_url_suffix": {
+        "adGroupAd__ad__name": {
             "type": ["string", "null"]
         },
-        "ad_group_ad__ad__final_urls": {
-            "type": ["array", "null"],
-            "items": {
-                "type": ["string", "null"]
-            }
-        },
-        "ad_group_ad__ad__name": {
+        "adGroupAd__status": {
             "type": ["string", "null"]
         },
-        "ad_group_ad__policy_summary__approval_status": {
+        "adGroupAd__ad__trackingUrlTemplate": {
             "type": ["string", "null"]
         },
-        "ad_group_ad__policy_summary__review_status": {
-            "type": ["string", "null"]
-        },
-        "ad_group_ad__status": {
-            "type": ["string", "null"]
-        },
-        "ad_group_ad__ad__system_managed_resource_source": {
-            "type": ["string", "null"]
-        },
-        "ad_group_ad__ad__tracking_url_template": {
-            "type": ["string", "null"]
-        },
-        "ad_group_ad__ad__type": {
-            "type": ["string", "null"]
-        },
-        "ad_group_ad__ad__url_collections": {
-            "type": ["array", "null"],
-            "items": {
-                "type": ["object", "null"]
-            }
-        },
-        "segments__date": {
+        "adGroupAd__ad__type": {
             "type": ["string", "null"]
         }
     }
-} 
+}
