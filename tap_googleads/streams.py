@@ -637,6 +637,35 @@ class ExpandedTextAdStream(ReportsStream):
     replication_key = None
     schema_filepath = SCHEMAS_DIR / "expanded_text_ad.json"
 
+class GenderReportStream(ReportsStream):
+    """Define custom stream for gender-level reporting."""
+
+    @property
+    def gaql(self):
+        return f"""
+        select
+          customer.id,
+          ad_group.id,
+          ad_group_criterion.criterion_id,
+          ad_group_criterion.gender.type,
+          campaign.id,
+          metrics.clicks,
+          metrics.conversions,
+          metrics.conversions_value,
+          metrics.cost_micros,
+          metrics.impressions,
+          segments.date
+        from
+          gender_view
+        WHERE segments.date >= {self.start_date} and segments.date <= {self.end_date}
+        """
+
+    records_jsonpath = "$.results[*]"
+    name = "stream_gender_report"
+    primary_keys = ["customer__id", "campaign__id", "adGroup__id", "adGroupCriterion__criterionId", "segments__date", "adGroupCriterion__gender__type"]
+    replication_key = None
+    schema_filepath = SCHEMAS_DIR / "gender_report.json"
+
 class KeywordReportsStream(ReportsStream):
     """Define custom stream."""
 
