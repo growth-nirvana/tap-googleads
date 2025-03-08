@@ -351,16 +351,14 @@ class CampaignsStream(ReportsStream):
           campaign.vanity_pharma.vanity_pharma_display_url_mode,
           campaign.vanity_pharma.vanity_pharma_text,
           campaign.video_brand_safety_suitability,
-          campaign.labels,
-          segments.date
+          campaign.labels
         from
           campaign
-        WHERE segments.date >= {self.start_date} and segments.date <= {self.end_date}
         """
 
     records_jsonpath = "$.results[*]"
     name = "stream_campaign"
-    primary_keys = ["campaign__id"]
+    primary_keys = ["campaign__id", "customer__id"]
     replication_key = None
     schema_filepath = SCHEMAS_DIR / "campaign.json"
 
