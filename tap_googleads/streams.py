@@ -602,6 +602,43 @@ class AdReportStream(ReportsStream):
     replication_key = None
     schema_filepath = SCHEMAS_DIR / "ad_report.json"
 
+class AdStatsStream(ReportsStream):
+    """Stream for ad stats information from Google Ads."""
+
+    @property
+    def gaql(self):
+        return f"""
+            SELECT
+                customer.id,
+                ad_group.id,
+                ad_group_ad.ad.id,
+                campaign.id,
+                metrics.active_view_impressions,
+                metrics.active_view_measurability,
+                metrics.active_view_measurable_cost_micros,
+                metrics.active_view_measurable_impressions,
+                metrics.active_view_viewability,
+                metrics.clicks,
+                metrics.conversions_value,
+                metrics.conversions,
+                metrics.cost_micros,
+                metrics.impressions,
+                metrics.interaction_event_types,
+                metrics.interactions,
+                metrics.view_through_conversions,
+                segments.ad_network_type,
+                segments.device,
+                segments.date
+            FROM
+                ad_group_ad
+            WHERE segments.date >= {self.start_date} and segments.date <= {self.end_date}
+        """
+    records_jsonpath = "$.results[*]"
+    name = "stream_ad_stats"
+    primary_keys = ["customer__id", "adGroupAd__ad__id", "adGroup__id", "segments__date", "segments__device", "segments__adNetworkType"]
+    replication_key = None
+    schema_filepath = SCHEMAS_DIR / "ad_stats.json"
+
 class AdGroupsStream(ReportsStream):
     """Define custom stream."""
 
@@ -642,7 +679,6 @@ class AdGroupsStream(ReportsStream):
     primary_keys = ["adGroup__id", "adGroup__campaign", "adGroup__status"]
     replication_key = None
     schema_filepath = SCHEMAS_DIR / "ad_group.json"
-
 
 class AdGroupsPerformance(ReportsStream):
     """AdGroups Performance"""
