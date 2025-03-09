@@ -889,6 +889,62 @@ class RegionReportCustomConversionsStream(ReportsStream):
     replication_key = None
     schema_filepath = SCHEMAS_DIR / "region_report_custom_conversions.json"
 
+class ResponsiveSearchAdStream(ReportsStream):
+    """Define custom stream for responsive search ads."""
+
+    @property
+    def gaql(self):
+        return f"""
+        select
+          customer.id,
+          ad_group.id,
+          ad_group_ad.ad.id,
+          ad_group_ad.ad.responsive_search_ad.descriptions,
+          ad_group_ad.ad.responsive_search_ad.headlines,
+          ad_group_ad.ad.responsive_search_ad.path1,
+          ad_group_ad.ad.responsive_search_ad.path2
+        from
+          ad_group_ad
+        """
+
+    records_jsonpath = "$.results[*]"
+    name = "stream_responsive_search_ad"
+    primary_keys = ["customer__id", "adGroup__id", "adGroupAd__ad__id"]
+    replication_key = None
+    schema_filepath = SCHEMAS_DIR / "responsive_search_ad.json"
+
+class SearchQueryReportStream(ReportsStream):
+    """Define custom stream for search query reporting."""
+
+    @property
+    def gaql(self):
+        return f"""
+        select
+          customer.id,
+          ad_group.id,
+          campaign.id,
+          metrics.clicks,
+          metrics.conversions,
+          metrics.conversions_value,
+          metrics.cost_micros,
+          metrics.impressions,
+          search_term_view.search_term,
+          segments.keyword.ad_group_criterion,
+          segments.keyword.info.match_type,
+          segments.keyword.info.text,
+          segments.search_term_match_type,
+          segments.date
+        from
+          search_term_view
+        WHERE segments.date >= {self.start_date} and segments.date <= {self.end_date}
+        """
+
+    records_jsonpath = "$.results[*]"
+    name = "stream_search_query_report"
+    primary_keys = ["customer__id", "campaign__id", "adGroup__id", "searchTermView__searchTerm", "segments__date", "segments__keyword__adGroupCriterion", "segments__keyword__info__matchType", "segments__keyword__info__text", "segments__searchTermMatchType"]
+    replication_key = None
+    schema_filepath = SCHEMAS_DIR / "search_query_report.json"
+
 class KeywordReportsStream(ReportsStream):
     """Define custom stream."""
 
