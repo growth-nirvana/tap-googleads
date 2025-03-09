@@ -1035,6 +1035,34 @@ class VideoReportStream(ReportsStream):
     replication_key = None
     schema_filepath = SCHEMAS_DIR / "video_report.json"
 
+class VideoReportCustomConversionsStream(ReportsStream):
+    """Define custom stream for video conversion reporting."""
+
+    @property
+    def gaql(self):
+        return f"""
+        select
+          customer.id,
+          campaign.id,
+          ad_group.id,
+          video.id,
+          metrics.conversions,
+          metrics.conversions_value,
+          metrics.all_conversions,
+          metrics.all_conversions_value,
+          segments.conversion_action_name,
+          segments.date
+        from
+          video
+        WHERE segments.date >= {self.start_date} and segments.date <= {self.end_date}
+        """
+
+    records_jsonpath = "$.results[*]"
+    name = "stream_video_report_custom_conversions"
+    primary_keys = ["customer__id", "campaign__id", "adGroup__id", "video__id", "segments__date", "segments__conversionActionName"]
+    replication_key = None
+    schema_filepath = SCHEMAS_DIR / "video_report_custom_conversions.json"
+
 class KeywordReportsStream(ReportsStream):
     """Define custom stream."""
 

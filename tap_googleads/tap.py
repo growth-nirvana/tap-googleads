@@ -50,6 +50,7 @@ from tap_googleads.streams import (
     SearchQueryReportCustomConversionsStream,
     VideoStream,
     VideoReportStream,
+    VideoReportCustomConversionsStream,
 )
 
 STREAM_TYPES = [
@@ -95,6 +96,7 @@ STREAM_TYPES = [
     SearchQueryReportCustomConversionsStream,
     VideoStream,
     VideoReportStream,
+    VideoReportCustomConversionsStream,
 ]
 
 CUSTOMER_ID_TYPE = th.StringType()
