@@ -945,6 +945,60 @@ class SearchQueryReportStream(ReportsStream):
     replication_key = None
     schema_filepath = SCHEMAS_DIR / "search_query_report.json"
 
+class SearchQueryReportCustomConversionsStream(ReportsStream):
+    """Define custom stream for search query conversion reporting."""
+
+    @property
+    def gaql(self):
+        return f"""
+        select
+          customer.id,
+          ad_group.id,
+          campaign.id,
+          metrics.all_conversions,
+          metrics.all_conversions_value,
+          metrics.conversions,
+          metrics.conversions_value,
+          search_term_view.search_term,
+          segments.conversion_action_name,
+          segments.keyword.ad_group_criterion,
+          segments.search_term_match_type,
+          segments.date
+        from
+          search_term_view
+        WHERE segments.date >= {self.start_date} and segments.date <= {self.end_date}
+        """
+
+    records_jsonpath = "$.results[*]"
+    name = "stream_search_query_report_custom_conversions"
+    primary_keys = ["customer__id", "campaign__id", "adGroup__id", "searchTermView__searchTerm", "segments__date", "segments__conversionActionName", "segments__keyword__adGroupCriterion", "segments__searchTermMatchType"]
+    replication_key = None
+    schema_filepath = SCHEMAS_DIR / "search_query_report_custom_conversions.json"
+
+class VideoStream(ReportsStream):
+    """Define custom stream for video reporting."""
+
+    @property
+    def gaql(self):
+        return f"""
+        select
+          customer.id,
+          video.id,
+          video.channel_id,
+          video.duration_millis,
+          video.resource_name,
+          video.title
+        from
+          video
+        WHERE segments.date >= {self.start_date} and segments.date <= {self.end_date}
+        """
+
+    records_jsonpath = "$.results[*]"
+    name = "stream_video"
+    primary_keys = ["customer__id", "video__id"]
+    replication_key = None
+    schema_filepath = SCHEMAS_DIR / "video.json"
+
 class KeywordReportsStream(ReportsStream):
     """Define custom stream."""
 
