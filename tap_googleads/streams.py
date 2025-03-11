@@ -57,7 +57,6 @@ class AccessibleCustomers(GoogleAdsStream):
 
         return {"customer_ids": customer_ids}
 
-
 class CustomerHierarchyStream(GoogleAdsStream):
     """Customer Hierarchy.
 
@@ -196,7 +195,6 @@ class GeotargetsStream(ReportsStream):
         yield from super().get_records(context)
         self.selected = False  # sync once only
 
-
 class ClickViewReportStream(ReportsStream):
     date: datetime.date
 
@@ -311,11 +309,9 @@ class AccountsStream(ReportsStream):
               customer.test_account,
               customer.time_zone,
               customer.tracking_url_template,
-              customer.status,
-              segments.date
+              customer.status
             from
               customer
-            WHERE segments.date >= {self.start_date} and segments.date <= {self.end_date}
         """
 
     records_jsonpath = "$.results[*]"
@@ -398,7 +394,7 @@ class CampaignReportsStream(ReportsStream):
 
     records_jsonpath = "$.results[*]"
     name = "stream_campaign_report"
-    primary_keys = ["campaign__id", "segments__date"]
+    primary_keys = ["campaign__id", "segments__date", "customer__id"]
     replication_key = None
     schema_filepath = SCHEMAS_DIR / "campaign_report.json"
 
@@ -425,7 +421,7 @@ class CampaignReportCustomConversionsStream(ReportsStream):
 
     records_jsonpath = "$.results[*]"
     name = "stream_campaign_report_custom_conversions"
-    primary_keys = ["customer__id", "campaign__id", "segments__conversion_action_name", "segments__date"]
+    primary_keys = ["customer__id", "campaign__id", "segments__conversionActionName", "segments__date"]
     replication_key = None
     schema_filepath = SCHEMAS_DIR / "campaign_report_custom_conversions.json"
 
@@ -1277,38 +1273,41 @@ class AdGroupsStream(ReportsStream):
     @property
     def gaql(self):
         return """
-       SELECT ad_group.url_custom_parameters,
-       ad_group.type,
-       ad_group.tracking_url_template,
-       ad_group.targeting_setting.target_restrictions,
-       ad_group.target_roas,
-       ad_group.target_cpm_micros,
-       ad_group.status,
-       ad_group.target_cpa_micros,
-       ad_group.resource_name,
-       ad_group.percent_cpc_bid_micros,
-       ad_group.name,
-       ad_group.labels,
-       ad_group.id,
-       ad_group.final_url_suffix,
-       ad_group.excluded_parent_asset_field_types,
-       ad_group.effective_target_roas_source,
-       ad_group.effective_target_roas,
-       ad_group.effective_target_cpa_source,
-       ad_group.effective_target_cpa_micros,
-       ad_group.display_custom_bid_dimension,
-       ad_group.cpv_bid_micros,
-       ad_group.cpm_bid_micros,
-       ad_group.cpc_bid_micros,
-       ad_group.campaign,
-       ad_group.base_ad_group,
-       ad_group.ad_rotation_mode
+       SELECT 
+        customer.id,
+        campaign.id,
+        ad_group.url_custom_parameters,
+        ad_group.type,
+        ad_group.tracking_url_template,
+        ad_group.targeting_setting.target_restrictions,
+        ad_group.target_roas,
+        ad_group.target_cpm_micros,
+        ad_group.status,
+        ad_group.target_cpa_micros,
+        ad_group.resource_name,
+        ad_group.percent_cpc_bid_micros,
+        ad_group.name,
+        ad_group.labels,
+        ad_group.id,
+        ad_group.final_url_suffix,
+        ad_group.excluded_parent_asset_field_types,
+        ad_group.effective_target_roas_source,
+        ad_group.effective_target_roas,
+        ad_group.effective_target_cpa_source,
+        ad_group.effective_target_cpa_micros,
+        ad_group.display_custom_bid_dimension,
+        ad_group.cpv_bid_micros,
+        ad_group.cpm_bid_micros,
+        ad_group.cpc_bid_micros,
+        ad_group.campaign,
+        ad_group.base_ad_group,
+        ad_group.ad_rotation_mode
        FROM ad_group
        """
 
     records_jsonpath = "$.results[*]"
     name = "stream_adgroups"
-    primary_keys = ["adGroup__id", "adGroup__campaign", "adGroup__status"]
+    primary_keys = ["adGroup__id"]
     replication_key = None
     schema_filepath = SCHEMAS_DIR / "ad_group.json"
 
@@ -1408,7 +1407,6 @@ class CampaignPerformance(ReportsStream):
     replication_key = None
     schema_filepath = SCHEMAS_DIR / "campaign_performance.json"
 
-
 class CampaignPerformanceByAgeRangeAndDevice(ReportsStream):
     """Campaign Performance By Age Range and Device"""
 
@@ -1429,7 +1427,6 @@ class CampaignPerformanceByAgeRangeAndDevice(ReportsStream):
     ]
     replication_key = None
     schema_filepath = SCHEMAS_DIR / "campaign_performance_by_age_range_and_device.json"
-
 
 class CampaignPerformanceByGenderAndDevice(ReportsStream):
     """Campaign Performance By Age Range and Device"""
@@ -1452,7 +1449,6 @@ class CampaignPerformanceByGenderAndDevice(ReportsStream):
     replication_key = None
     schema_filepath = SCHEMAS_DIR / "campaign_performance_by_gender_and_device.json"
 
-
 class CampaignPerformanceByLocation(ReportsStream):
     """Campaign Performance By Age Range and Device"""
 
@@ -1471,7 +1467,6 @@ class CampaignPerformanceByLocation(ReportsStream):
     ]
     replication_key = None
     schema_filepath = SCHEMAS_DIR / "campaign_performance_by_location.json"
-
 
 class GeoPerformance(ReportsStream):
     """Geo performance"""

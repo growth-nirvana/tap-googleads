@@ -137,7 +137,11 @@
             "type": ["number", "null", "string"]
         },
         "segments__date": {
-            "type": ["string", "null"]
+            "type": [
+                "string",
+                "null"
+            ],
+            "format": "date"
         }
     }
 }

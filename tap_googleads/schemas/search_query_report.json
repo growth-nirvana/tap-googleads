@@ -11,8 +11,8 @@
         "type": ["string", "null"]
       },
       "metrics__clicks": {
-        "type": ["string", "integer", "null"],
-        "format": "integer-string"
+        "type": ["string", "number", "null"],
+        "format": "number-string"
       },
       "metrics__conversions": {
         "type": ["string", "number", "null"],
@@ -23,12 +23,12 @@
         "format": "number-string"
       },
       "metrics__costMicros": {
-        "type": ["string", "integer", "null"],
-        "format": "integer-string"
+        "type": ["string", "number", "null"],
+        "format": "number-string"
       },
       "metrics__impressions": {
-        "type": ["string", "integer", "null"],
-        "format": "integer-string"
+        "type": ["string", "number", "null"],
+        "format": "number-string"
       },
       "searchTermView__searchTerm": {
         "type": ["string", "null"]
