@@ -420,6 +420,12 @@ class CampaignReportsStream(ReportsStream):
                 metrics.search_rank_lost_top_impression_share,
                 metrics.search_top_impression_share,
                 metrics.top_impression_percentage,
+                metrics.video_quartile_p100_rate,
+                metrics.video_quartile_p75_rate,
+                metrics.video_quartile_p50_rate,
+                metrics.video_quartile_p25_rate,
+                metrics.video_view_rate,
+                metrics.video_views,
                 segments.date
             from
                 campaign

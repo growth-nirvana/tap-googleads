@@ -1,144 +1,180 @@
 {
-    "type": "object",
-    "properties": {
-        "customer__id": {
-            "type": [
-                "string",
-                "null"
-            ]
-        },
-        "campaign__id": {
-            "type": [
-                "string",
-                "null"
-            ]
-        },
-        "campaign__name": {
-            "type": [
-                "string",
-                "null"
-            ]
-        },
-        "metrics__absoluteTopImpressionPercentage": {
-            "type": [
-                "number",
-                "null"
-            ]
-        },
-        "metrics__allConversions": {
-            "type": [
-                "number",
-                "null"
-            ]
-        },
-        "metrics__clicks": {
-            "type": [
-                "number",
-                "null"
-            ]
-        },
-        "metrics__conversions": {
-            "type": [
-                "number",
-                "null"
-            ]
-        },
-        "metrics__conversionsValue": {
-            "type": [
-                "number",
-                "null"
-            ]
-        },
-        "metrics__costMicros": {
-            "type": [
-                "number",
-                "null"
-            ]
-        },
-        "metrics__impressions": {
-            "type": [
-                "number",
-                "null"
-            ]
-        },
-        "metrics__phoneCalls": {
-            "type": [
-                "number",
-                "null"
-            ]
-        },
-        "metrics__searchBudgetLostAbsoluteTopImpressionShare": {
-            "type": [
-                "number",
-                "null"
-            ]
-        },
-        "metrics__searchBudgetLostImpressionShare": {
-            "type": [
-                "number",
-                "null"
-            ]
-        },
-        "metrics__searchBudgetLostTopImpressionShare": {
-            "type": [
-                "number",
-                "null"
-            ]
-        },
-        "metrics__searchAbsoluteTopImpressionShare": {
-            "type": [
-                "number",
-                "null"
-            ]
-        },
-        "metrics__searchExactMatchImpressionShare": {
-            "type": [
-                "number",
-                "null"
-            ]
-        },
-        "metrics__searchImpressionShare": {
-            "type": [
-                "number",
-                "null"
-            ]
-        },
-        "metrics__searchRankLostAbsoluteTopImpressionShare": {
-            "type": [
-                "number",
-                "null"
-            ]
-        },
-        "metrics__searchRankLostImpressionShare": {
-            "type": [
-                "number",
-                "null"
-            ]
-        },
-        "metrics__searchRankLostTopImpressionShare": {
-            "type": [
-                "number",
-                "null"
-            ]
-        },
-        "metrics__searchTopImpressionShare": {
-            "type": [
-                "number",
-                "null"
-            ]
-        },
-        "metrics__topImpressionPercentage": {
-            "type": [
-                "number",
-                "null"
-            ]
-        },
-        "segments__date": {
-            "type": [
-                "string",
-                "null"
-            ],
-            "format": "date"
-        }
+  "type": "object",
+  "properties": {
+    "customer__id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "campaign__id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "campaign__name": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "metrics__absoluteTopImpressionPercentage": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "metrics__allConversions": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "metrics__clicks": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "metrics__conversions": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "metrics__conversionsValue": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "metrics__costMicros": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "metrics__impressions": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "metrics__phoneCalls": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "metrics__searchBudgetLostAbsoluteTopImpressionShare": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "metrics__searchBudgetLostImpressionShare": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "metrics__searchBudgetLostTopImpressionShare": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "metrics__searchAbsoluteTopImpressionShare": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "metrics__searchExactMatchImpressionShare": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "metrics__searchImpressionShare": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "metrics__searchRankLostAbsoluteTopImpressionShare": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "metrics__searchRankLostImpressionShare": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "metrics__searchRankLostTopImpressionShare": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "metrics__searchTopImpressionShare": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "metrics__topImpressionPercentage": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "metrics__videoQuartileP100Rate": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "metrics__videoQuartileP75Rate": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "metrics__videoQuartileP50Rate": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "metrics__videoQuartileP25Rate": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "metrics__videoViewRate": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "metrics__videoViews": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "segments__date": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date"
     }
+  }
 }
