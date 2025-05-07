@@ -1708,3 +1708,30 @@ class LabelReportStream(ReportsStream):
     primary_keys = ["customer__id", "campaign__id", "adGroup__id", "adGroupAd__ad__id", "segments__date"]
     replication_key = None
     schema_filepath = SCHEMAS_DIR / "label_report.json"
+
+class CountyReportStream(ReportsStream):
+    """Define custom stream for county-level reporting."""
+
+    @property
+    def gaql(self):
+        return f"""
+        SELECT
+            customer.id,
+            campaign.id,
+            campaign.name,
+            geographic_view.location_type,
+            metrics.clicks,
+            metrics.cost_micros,
+            metrics.impressions,
+            segments.geo_target_county,
+            segments.date
+        FROM
+            geographic_view
+        WHERE segments.date >= {self.start_date} and segments.date <= {self.end_date}
+        """
+
+    records_jsonpath = "$.results[*]"
+    name = "stream_county_report"
+    primary_keys = ["customer__id", "campaign__id", "segments__date", "segments__geoTargetCounty", "geographicView__locationType"]
+    replication_key = None
+    schema_filepath = SCHEMAS_DIR / "county_report.json"

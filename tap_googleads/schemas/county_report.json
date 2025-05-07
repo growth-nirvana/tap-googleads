@@ -1,0 +1,14 @@
+{
+  "type": "object",
+  "properties": {
+    "customer__id": {"type": ["null", "integer"]},
+    "campaign__id": {"type": ["null", "integer"]},
+    "campaign__name": {"type": ["null", "string"]},
+    "geographicView__locationType": {"type": ["null", "string"]},
+    "metrics__clicks": {"type": ["null", "integer"]},
+    "metrics__costMicros": {"type": ["null", "integer"]},
+    "metrics__impressions": {"type": ["null", "integer"]},
+    "segments__geoTargetCounty": {"type": ["null", "string"]},
+    "segments__date": {"type": ["null", "string"], "format": "date"}
+  }
+}
