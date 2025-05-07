@@ -1653,3 +1653,58 @@ class GeoPerformance(ReportsStream):
     ]
     replication_key = None
     schema_filepath = SCHEMAS_DIR / "geo_performance.json"
+
+class LabelStream(ReportsStream):
+    """Define custom stream for labels."""
+
+    @property
+    def gaql(self):
+        return """
+        SELECT
+            label.id,
+            label.name,
+            label.status,
+            label.text_label_background_color,
+            label.text_label_description
+        FROM
+            label
+        """
+
+    records_jsonpath = "$.results[*]"
+    name = "stream_label"
+    primary_keys = ["label__id"]
+    replication_key = None
+    schema_filepath = SCHEMAS_DIR / "label.json"
+
+class LabelReportStream(ReportsStream):
+    """Define custom stream for label reporting."""
+
+    @property
+    def gaql(self):
+        return f"""
+        SELECT
+            customer.id,
+            campaign.id,
+            ad_group.id,
+            ad_group_ad.ad.id,
+            ad_group_ad.ad.final_urls,
+            ad_group.labels,
+            ad_group_ad.labels,
+            metrics.all_conversions,
+            metrics.all_conversions_value,
+            metrics.clicks,
+            metrics.conversions,
+            metrics.conversions_value,
+            metrics.cost_micros,
+            metrics.impressions,
+            segments.date
+        FROM
+            ad_group_ad
+        WHERE segments.date >= {self.start_date} and segments.date <= {self.end_date}
+        """
+
+    records_jsonpath = "$.results[*]"
+    name = "stream_label_report"
+    primary_keys = ["customer__id", "campaign__id", "adGroup__id", "adGroupAd__ad__id", "segments__date"]
+    replication_key = None
+    schema_filepath = SCHEMAS_DIR / "label_report.json"

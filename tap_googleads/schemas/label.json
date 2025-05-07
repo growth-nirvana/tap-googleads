@@ -1,0 +1,10 @@
+{
+  "type": "object",
+  "properties": {
+    "label__id": {"type": ["null", "integer"]},
+    "label__name": {"type": ["null", "string"]},
+    "label__status": {"type": ["null", "string"]},
+    "label__text_label_background_color": {"type": ["null", "string"]},
+    "label__text_label_description": {"type": ["null", "string"]}
+  }
+}
