@@ -197,12 +197,6 @@ class TapGoogleAds(Tap):
             description="Enables the tap's ClickViewReportStream. This requires setting up / permission on your google ads account(s)",
             default=False,
         ),
-        th.Property(
-            "sync_all_available_customers",
-            th.BooleanType,
-            description="If true, sync all available customers. If false, sync only the customers specified in the customer_ids config.",
-            default=False,
-        ),
     ).to_dict()
 
     def __init__(self, *args, **kwargs):
@@ -211,20 +205,12 @@ class TapGoogleAds(Tap):
             lookback_days = self.config.get("lookback_days", 30)
             self.config["start_date"] = (datetime.now(timezone.utc).date() - timedelta(days=lookback_days)).isoformat()
 
-        self.effective_customer_ids = []
-        if self.config.get("sync_all_available_customers"):
-            self.logger.info("sync_all_available_customers is set to True. Syncing all available customers.")
-            # leaving effective_customer_ids empty will sync all available customers
-        elif "customer_ids" in self.config:
-            self.effective_customer_ids = [cid.strip() for cid in self.config["customer_ids"].split(",")]
-        elif "customer_id" in self.config:
-            self.effective_customer_ids = [self.config["customer_id"]]
-
     def setup_mapper(self):
         self._config.setdefault("flattening_enabled", True)
         self._config.setdefault("flattening_max_depth", 2)
 
-        mapper = super().setup_mapper()
+        return super().setup_mapper()
+
 
     def discover_streams(self) -> List[Stream]:
         """Return a list of discovered streams."""
