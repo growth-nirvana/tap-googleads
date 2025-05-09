@@ -102,10 +102,6 @@ class CustomerHierarchyStream(GoogleAdsStream):
 
     seen_customer_ids = set()
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.allowed_customer_ids = getattr(self._tap, "effective_customer_ids", [])
-
     def validate_response(self, response):
         if response.status_code == HTTPStatus.FORBIDDEN:
             msg = self.response_error_message(response)
@@ -127,7 +123,7 @@ class CustomerHierarchyStream(GoogleAdsStream):
         row = row["customerClient"]
         row["customer_id"] = _sanitise_customer_id(row["id"])
         return row
-
+    
     def _sync_children(self, child_context: dict | None) -> None:
         if child_context:
             self.seen_customer_ids.add(child_context.get("customer_id"))
@@ -146,9 +142,9 @@ class CustomerHierarchyStream(GoogleAdsStream):
         family_line = self.get_customer_family_line(record.get("resourceName"))
 
         if is_active_client and not already_synced:
-            if not self.allowed_customer_ids or len(set(self.allowed_customer_ids).intersection(set(family_line))) > 0:
+            if not self.customer_ids or len(set(self.customer_ids).intersection(set(family_line))) > 0:
                 return {"customer_id": record.get("id"), "is_active_client": is_active_client}
-
+        
         return None
 
 class ReportsStream(GoogleAdsStream):
