@@ -1228,14 +1228,14 @@ class VideoReportCustomConversionsStream(ReportsStream):
     replication_key = None
     schema_filepath = SCHEMAS_DIR / "video_report_custom_conversions.json"
 
-    # def post_process(self, row, context):
-    #     # Google Ads API may return 'id' for video view, or 'video__id' after mapping
-    #     video_id = row.get("video", {}).get("id")
-    #     if not video_id:
-    #         row["video__id"] = "noId"
-    #     else:
-    #         row["video__id"] = video_id
-    #     return row
+    def post_process(self, row, context):
+        # Google Ads API may return 'id' for video view, or 'video__id' after mapping
+        video_id = row.get("video", {}).get("id")
+        if not video_id:
+            row["video__id"] = "noId"
+        else:
+            row["video__id"] = video_id
+        return row
 
 class KeywordReportsStream(ReportsStream):
     """Define custom stream."""
