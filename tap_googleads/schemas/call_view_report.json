@@ -1,0 +1,17 @@
+{
+  "type": "object",
+  "properties": {
+    "customer__id": { "type": ["string", "null"] },
+    "campaign__id": { "type": ["string", "null"] },
+    "adGroup__id": { "type": ["string", "null"] },
+    "callView__callDurationSeconds": { "type": ["integer", "null"] },
+    "callView__callStatus": { "type": ["string", "null"] },
+    "callView__callTrackingDisplayLocation": { "type": ["string", "null"] },
+    "callView__callerAreaCode": { "type": ["string", "null"] },
+    "callView__callerCountryCode": { "type": ["string", "null"] },
+    "callView__endCallDateTime": { "type": ["string", "null"], "format": "date-time" },
+    "callView__resourceName": { "type": ["string", "null"] },
+    "callView__startCallDateTime": { "type": ["string", "null"], "format": "date-time" },
+    "callView__type": { "type": ["string", "null"] }
+  }
+}
