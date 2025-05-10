@@ -13,6 +13,9 @@
       "video__id": {
         "type": ["string", "null"]
       },
+      "video__channelId": {
+        "type": ["string", "null"]
+      },
       "metrics__conversions": {
         "type": ["number", "null"]
       },
