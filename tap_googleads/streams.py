@@ -1155,9 +1155,15 @@ class VideoReportStream(ReportsStream):
         return f"""
         select
           customer.id,
+          customer.descriptive_name,
           campaign.id,
           ad_group.id,
           video.id,
+          video.channel_id,
+          video.title,
+          video.duration_millis,
+          ad_group_ad.ad.id,
+          ad_group_ad.ad.name,
           metrics.clicks,
           metrics.conversions,
           metrics.conversions_value,
@@ -1179,9 +1185,18 @@ class VideoReportStream(ReportsStream):
 
     records_jsonpath = "$.results[*]"
     name = "stream_video_report"
-    primary_keys = ["customer__id", "campaign__id", "adGroup__id", "video__id", "segments__date"]
+    primary_keys = ["customer__id", "campaign__id", "adGroup__id", "video__id", "segments__date", "adGroupAd__ad__id"]
     replication_key = None
     schema_filepath = SCHEMAS_DIR / "video_report.json"
+
+    def post_process(self, row, context):
+        # Google Ads API may return 'id' for video view, or 'video__id' after mapping
+        video_id = row.get("video", {}).get("id")
+        if not video_id:
+            row["video__id"] = "noId"
+        else:
+            row["video__id"] = video_id
+        return row
 
 class VideoReportCustomConversionsStream(ReportsStream):
     """Define custom stream for video conversion reporting."""
@@ -1194,6 +1209,8 @@ class VideoReportCustomConversionsStream(ReportsStream):
           campaign.id,
           ad_group.id,
           video.id,
+          video.channel_id,
+          ad_group_ad.ad.id,
           metrics.conversions,
           metrics.conversions_value,
           metrics.all_conversions,
@@ -1207,9 +1224,18 @@ class VideoReportCustomConversionsStream(ReportsStream):
 
     records_jsonpath = "$.results[*]"
     name = "stream_video_report_custom_conversions"
-    primary_keys = ["customer__id", "campaign__id", "adGroup__id", "video__id", "segments__date", "segments__conversionActionName"]
+    primary_keys = ["customer__id", "campaign__id", "adGroup__id", "video__id", "segments__date", "segments__conversionActionName", "adGroupAd__ad__id"]
     replication_key = None
     schema_filepath = SCHEMAS_DIR / "video_report_custom_conversions.json"
+
+    def post_process(self, row, context):
+        # Google Ads API may return 'id' for video view, or 'video__id' after mapping
+        video_id = row.get("video", {}).get("id")
+        if not video_id:
+            row["video__id"] = "noId"
+        else:
+            row["video__id"] = video_id
+        return row
 
 class KeywordReportsStream(ReportsStream):
     """Define custom stream."""

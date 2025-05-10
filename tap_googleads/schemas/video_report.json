@@ -13,6 +13,12 @@
       "video__id": {
         "type": ["string", "null"]
       },
+      "adGroupAd__ad__id": {
+        "type": ["string", "null"]
+      },
+      "adGroupAd__ad__name": {
+        "type": ["string", "null"]
+      },
       "metrics__clicks": {
         "type": ["number", "null"]
       },
@@ -55,6 +61,18 @@
       "segments__date": {
         "type": ["string", "null"],
         "format": "date"
+      },
+      "video__channelId": {
+        "type": ["string", "null"]
+      },
+      "video__title": {
+        "type": ["string", "null"]
+      },
+      "customer__descriptiveName": {
+        "type": ["string", "null"]
+      },
+      "video__durationMillis": {
+        "type": ["string", "null"]
       }
     }
   }
