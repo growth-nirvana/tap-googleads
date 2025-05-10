@@ -1228,14 +1228,14 @@ class VideoReportCustomConversionsStream(ReportsStream):
     replication_key = None
     schema_filepath = SCHEMAS_DIR / "video_report_custom_conversions.json"
 
-    def post_process(self, row, context):
-        # Google Ads API may return 'id' for video view, or 'video__id' after mapping
-        video_id = row.get("video", {}).get("id")
-        if not video_id:
-            row["video__id"] = "noId"
-        else:
-            row["video__id"] = video_id
-        return row
+    # def post_process(self, row, context):
+    #     # Google Ads API may return 'id' for video view, or 'video__id' after mapping
+    #     video_id = row.get("video", {}).get("id")
+    #     if not video_id:
+    #         row["video__id"] = "noId"
+    #     else:
+    #         row["video__id"] = video_id
+    #     return row
 
 class KeywordReportsStream(ReportsStream):
     """Define custom stream."""
@@ -1761,3 +1761,32 @@ class CountyReportStream(ReportsStream):
     primary_keys = ["customer__id", "campaign__id", "segments__date", "segments__geoTargetCounty", "geographicView__locationType"]
     replication_key = None
     schema_filepath = SCHEMAS_DIR / "county_report.json"
+
+class CallViewReportStream(ReportsStream):
+    """Define custom stream for call tracking reporting (call_view)."""
+
+    @property
+    def gaql(self):
+        return f"""
+        SELECT
+            customer.id,
+            campaign.id,
+            ad_group.id,
+            call_view.call_duration_seconds,
+            call_view.call_status,
+            call_view.call_tracking_display_location,
+            call_view.caller_area_code,
+            call_view.caller_country_code,
+            call_view.end_call_date_time,
+            call_view.resource_name,
+            call_view.start_call_date_time,
+            call_view.type
+        FROM call_view
+        WHERE call_view.start_call_date_time >= {self.start_date} and call_view.start_call_date_time <= {self.end_date}
+        """
+
+    records_jsonpath = "$.results[*]"
+    name = "stream_call_view_report"
+    primary_keys = ["customer__id", "campaign__id", "adGroup__id", "callView__resourceName"]
+    replication_key = None
+    schema_filepath = SCHEMAS_DIR / "call_view_report.json"
