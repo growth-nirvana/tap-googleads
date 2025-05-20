@@ -49,10 +49,10 @@ class GoogleAdsStream(RESTStream):
         
         # Generate a unique run_id for this tap run if not already set
         if GoogleAdsStream._shared_run_id is None:
-            GoogleAdsStream._shared_run_id = f"{datetime.now().strftime('%Y%m%d_%H%M%S')}_{str(uuid.uuid4())[:8]}"
+            GoogleAdsStream._shared_run_id = int(datetime.now().timestamp() * 1000)
 
     @property
-    def run_id(self) -> str:
+    def run_id(self) -> int:
         """Return the unique run_id for this tap run."""
         return GoogleAdsStream._shared_run_id
 

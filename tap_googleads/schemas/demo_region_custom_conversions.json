@@ -1,79 +1,79 @@
 {
-    "type": "object",
-    "properties": {
-        "geographicView__countryCriterionId": {
-            "type": [
-                "string",
-                "null"
-            ]
-        },
-        "segments__date": {
-            "type": [
-                "string",
-                "null"
-            ],
-            "format": "date"
-        },
-        "segments__geoTargetRegion": {
-            "type": [
-                "string",
-                "null"
-            ]
-        },
-        "segments__conversionActionName": {
-            "type": [
-                "string",
-                "null"
-            ]
-        },
-        "metrics__allConversions": {
-            "type": [
-                "number",
-                "null"
-            ]
-        },
-        "metrics__allConversionsValue": {
-            "type": [
-                "number",
-                "null"
-            ]
-        },
-        "metrics__conversions": {
-            "type": [
-                "number",
-                "null"
-            ]
-        },
-        "metrics__conversionsValue": {
-            "type": [
-                "number",
-                "null"
-            ]
-        },
-        "metrics__viewThroughConversions": {
-            "type": [
-                "number",
-                "null"
-            ]
-        },
-        "customer__id": {
-            "type": [
-                "string",
-                "null"
-            ]
-        },
-        "campaign__id": {
-            "type": [
-                "string",
-                "null"
-            ]
-        },
-        "run_id": {
-            "type": [
-                "string",
-                "null"
-            ],
-            "description": "Unique identifier for this tap run"
-        }
+  "type": "object",
+  "properties": {
+    "geographicView__countryCriterionId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "segments__date": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date"
+    },
+    "segments__geoTargetRegion": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "segments__conversionActionName": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "metrics__allConversions": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "metrics__allConversionsValue": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "metrics__conversions": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "metrics__conversionsValue": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "metrics__viewThroughConversions": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "customer__id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "campaign__id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "run_id": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "description": "Unique identifier for this tap run"
     }
+  }
 }

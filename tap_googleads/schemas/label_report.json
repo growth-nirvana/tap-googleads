@@ -1,121 +1,121 @@
 {
-    "type": "object",
-    "properties": {
-        "customer__id": {
-            "type": [
-                "null",
-                "integer"
-            ]
-        },
-        "campaign__id": {
-            "type": [
-                "null",
-                "integer"
-            ]
-        },
-        "adGroup__id": {
-            "type": [
-                "null",
-                "integer"
-            ]
-        },
-        "adGroupAd__ad__id": {
-            "type": [
-                "null",
-                "integer"
-            ]
-        },
-        "adGroupAd__ad__finalUrls": {
-            "type": [
-                "null",
-                "array"
-            ],
-            "items": {
-                "type": [
-                    "null",
-                    "string"
-                ]
-            }
-        },
-        "adGroup__labels": {
-            "type": [
-                "null",
-                "array"
-            ],
-            "items": {
-                "type": [
-                    "null",
-                    "string"
-                ]
-            }
-        },
-        "adGroupAd__labels": {
-            "type": [
-                "null",
-                "array"
-            ],
-            "items": {
-                "type": [
-                    "null",
-                    "string"
-                ]
-            }
-        },
-        "metrics__allConversions": {
-            "type": [
-                "null",
-                "number"
-            ]
-        },
-        "metrics__allConversionsValue": {
-            "type": [
-                "null",
-                "number"
-            ]
-        },
-        "metrics__clicks": {
-            "type": [
-                "null",
-                "integer"
-            ]
-        },
-        "metrics__conversions": {
-            "type": [
-                "null",
-                "number"
-            ]
-        },
-        "metrics__conversionsValue": {
-            "type": [
-                "null",
-                "number"
-            ]
-        },
-        "metrics__costMicros": {
-            "type": [
-                "null",
-                "integer"
-            ]
-        },
-        "metrics__impressions": {
-            "type": [
-                "null",
-                "integer"
-            ]
-        },
-        "segments__date": {
-            "type": [
-                "null",
-                "string"
-            ],
-            "format": "date"
-        },
-        "run_id": {
-            "type": [
-                "string",
-                "null"
-            ],
-            "description": "Unique identifier for this tap run"
-        }
+  "type": "object",
+  "properties": {
+    "customer__id": {
+      "type": [
+        "null",
+        "integer"
+      ]
+    },
+    "campaign__id": {
+      "type": [
+        "null",
+        "integer"
+      ]
+    },
+    "adGroup__id": {
+      "type": [
+        "null",
+        "integer"
+      ]
+    },
+    "adGroupAd__ad__id": {
+      "type": [
+        "null",
+        "integer"
+      ]
+    },
+    "adGroupAd__ad__finalUrls": {
+      "type": [
+        "null",
+        "array"
+      ],
+      "items": {
+        "type": [
+          "null",
+          "string"
+        ]
+      }
+    },
+    "adGroup__labels": {
+      "type": [
+        "null",
+        "array"
+      ],
+      "items": {
+        "type": [
+          "null",
+          "string"
+        ]
+      }
+    },
+    "adGroupAd__labels": {
+      "type": [
+        "null",
+        "array"
+      ],
+      "items": {
+        "type": [
+          "null",
+          "string"
+        ]
+      }
+    },
+    "metrics__allConversions": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "metrics__allConversionsValue": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "metrics__clicks": {
+      "type": [
+        "null",
+        "integer"
+      ]
+    },
+    "metrics__conversions": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "metrics__conversionsValue": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "metrics__costMicros": {
+      "type": [
+        "null",
+        "integer"
+      ]
+    },
+    "metrics__impressions": {
+      "type": [
+        "null",
+        "integer"
+      ]
+    },
+    "segments__date": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date"
+    },
+    "run_id": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "description": "Unique identifier for this tap run"
     }
+  }
 }
