@@ -3,50 +3,102 @@
     "type": "object",
     "properties": {
         "clickView__gclid": {
-            "type": ["string", "null"]
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "clickView__adGroupAd": {
-            "type": ["string", "null"]
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "clickView__keyword": {
-            "type": ["string", "null"]
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "clickView__keywordInfo__matchType": {
-            "type": ["string", "null"]
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "customer__id": {
-            "type": ["string", "null"]
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "adGroup__id": {
-            "type": ["string", "null"]
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "adGroup__name": {
-            "type": ["string", "null"]
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "campaign__id": {
-            "type": ["string", "null"]
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "campaign__name": {
-            "type": ["string", "null"]
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "date": {
             "format": "date",
-            "type": ["string", "null"]
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "segments__adNetworkType": {
-            "type": ["string", "null"]
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "segments__device": {
-            "type": ["string", "null"]
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "segments__slot": {
-            "type": ["string", "null"]
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "segments__clickType": {
-            "type": ["string", "null"]
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "metrics__clicks": {
-            "type": ["string", "null"]
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "run_id": {
+            "type": [
+                "string",
+                "null"
+            ],
+            "description": "Unique identifier for this tap run"
         }
     }
 }

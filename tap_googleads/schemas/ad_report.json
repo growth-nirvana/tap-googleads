@@ -2,139 +2,274 @@
     "type": "object",
     "properties": {
         "customer__id": {
-            "type": ["string", "null"]
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "adGroup__id": {
-            "type": ["string", "null"]
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "adGroup__name": {
-            "type": ["string", "null"]
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "adGroup__status": {
-            "type": ["string", "null"]
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "adGroupAd__ad__addedByGoogleAds": {
-            "type": ["boolean", "null"]
+            "type": [
+                "boolean",
+                "null"
+            ]
         },
         "adGroupAd__ad__callAd__description1": {
-            "type": ["string", "null"]
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "adGroupAd__ad__callAd__description2": {
-            "type": ["string", "null"]
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "adGroupAd__ad__devicePreference": {
-            "type": ["string", "null"]
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "adGroupAd__ad__displayUrl": {
-            "type": ["string", "null"]
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "adGroupAd__ad__expandedTextAd__description": {
-            "type": ["string", "null"]
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "adGroupAd__ad__expandedTextAd__description2": {
-            "type": ["string", "null"]
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "adGroupAd__ad__expandedTextAd__headlinePart1": {
-            "type": ["string", "null"]
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "adGroupAd__ad__expandedTextAd__headlinePart2": {
-            "type": ["string", "null"]
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "adGroupAd__ad__expandedTextAd__headlinePart3": {
-            "type": ["string", "null"]
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "adGroupAd__ad__expandedTextAd__path1": {
-            "type": ["string", "null"]
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "adGroupAd__ad__expandedTextAd__path2": {
-            "type": ["string", "null"]
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "adGroupAd__ad__finalMobileUrls": {
-            "type": ["array", "null"],
+            "type": [
+                "array",
+                "null"
+            ],
             "items": {
-                "type": ["string", "null"]
+                "type": [
+                    "string",
+                    "null"
+                ]
             }
         },
         "adGroupAd__ad__finalUrls": {
-            "type": ["array", "null"],
+            "type": [
+                "array",
+                "null"
+            ],
             "items": {
-                "type": ["string", "null"]
+                "type": [
+                    "string",
+                    "null"
+                ]
             }
         },
         "adGroupAd__ad__id": {
-            "type": ["string", "null"]
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "adGroupAd__ad__legacyResponsiveDisplayAd__callToActionText": {
-            "type": ["string", "null"]
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "adGroupAd__ad__legacyResponsiveDisplayAd__description": {
-            "type": ["string", "null"]
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "adGroupAd__ad__textAd__description1": {
-            "type": ["string", "null"]
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "adGroupAd__ad__textAd__description2": {
-            "type": ["string", "null"]
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "adGroupAd__ad__textAd__headline": {
-            "type": ["string", "null"]
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "adGroupAd__ad__trackingUrlTemplate": {
-            "type": ["string", "null"]
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "adGroupAd__ad__type": {
-            "type": ["string", "null"]
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "adGroupAd__ad__urlCustomParameters": {
-            "type": ["array", "null"],
+            "type": [
+                "array",
+                "null"
+            ],
             "items": {
-                "type": ["object", "null"]
+                "type": [
+                    "object",
+                    "null"
+                ]
             }
         },
         "adGroupAd__labels": {
-            "type": ["array", "null"],
+            "type": [
+                "array",
+                "null"
+            ],
             "items": {
-                "type": ["string", "null"]
+                "type": [
+                    "string",
+                    "null"
+                ]
             }
         },
         "adGroupAd__policySummary__approvalStatus": {
-            "type": ["string", "null"]
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "adGroupAd__status": {
-            "type": ["string", "null"]
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "campaign__id": {
-            "type": ["string", "null"]
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "campaign__name": {
-            "type": ["string", "null"]
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "campaign__status": {
-            "type": ["string", "null"]
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "metrics__allConversions": {
-            "type": ["number", "null"]
+            "type": [
+                "number",
+                "null"
+            ]
         },
         "metrics__allConversionsValue": {
-            "type": ["number", "null"]
+            "type": [
+                "number",
+                "null"
+            ]
         },
         "metrics__clicks": {
-            "type": ["number", "null"]
+            "type": [
+                "number",
+                "null"
+            ]
         },
         "metrics__conversions": {
-            "type": ["number", "null"]
+            "type": [
+                "number",
+                "null"
+            ]
         },
         "metrics__conversionsValue": {
-            "type": ["number", "null"]
+            "type": [
+                "number",
+                "null"
+            ]
         },
         "metrics__costMicros": {
-            "type": ["number", "null"]
+            "type": [
+                "number",
+                "null"
+            ]
         },
         "metrics__impressions": {
-            "type": ["number", "null"]
+            "type": [
+                "number",
+                "null"
+            ]
         },
         "metrics__viewThroughConversions": {
-            "type": ["number", "null"]
+            "type": [
+                "number",
+                "null"
+            ]
         },
         "segments__date": {
             "type": [
@@ -142,6 +277,13 @@
                 "null"
             ],
             "format": "date"
+        },
+        "run_id": {
+            "type": [
+                "string",
+                "null"
+            ],
+            "description": "Unique identifier for this tap run"
         }
     }
 }

@@ -199,6 +199,13 @@
                 "null"
             ],
             "format": "date"
+        },
+        "run_id": {
+            "type": [
+                "string",
+                "null"
+            ],
+            "description": "Unique identifier for this tap run"
         }
     }
 }

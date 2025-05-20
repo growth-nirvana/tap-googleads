@@ -2,40 +2,83 @@
     "type": "object",
     "properties": {
         "customer_id": {
-            "type": ["string", "null"]
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "campaign__resourceName": {
-            "type": ["string", "null"]
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "campaign__status": {
-            "type": ["string", "null"]
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "campaign__name": {
-            "type": ["string", "null"]
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "metrics__clicks": {
-            "type": ["string", "null"]
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "metrics__costMicros": {
-            "type": ["string", "null"]
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "metrics__impressions": {
-            "type": ["string", "null"]
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "metrics__conversions": {
-            "type": ["number", "null"]
+            "type": [
+                "number",
+                "null"
+            ]
         },
         "segments__date": {
-            "type": ["string", "null"]
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "geographicView__resourceName": {
-            "type": ["string", "null"]
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "geographicView__locationType": {
-            "type": ["string", "null"]
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "geographicView__countryCriterionId": {
-            "type": ["string", "null"]
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "run_id": {
+            "type": [
+                "string",
+                "null"
+            ],
+            "description": "Unique identifier for this tap run"
         }
     }
 }
