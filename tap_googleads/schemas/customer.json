@@ -1,75 +1,75 @@
 {
-    "type": "object",
-    "properties": {
-        "resourceName": {
-            "type": "string"
+  "type": "object",
+  "properties": {
+    "resourceName": {
+      "type": "string"
+    },
+    "callReportingSetting": {
+      "type": "object",
+      "properties": {
+        "callReportingEnabled": {
+          "type": "boolean"
         },
-        "callReportingSetting": {
-            "type": "object",
-            "properties": {
-                "callReportingEnabled": {
-                    "type": "boolean"
-                },
-                "callConversionReportingEnabled": {
-                    "type": "boolean"
-                },
-                "callConversionAction": {
-                    "type": "string"
-                }
-            }
+        "callConversionReportingEnabled": {
+          "type": "boolean"
         },
-        "conversionTrackingSetting": {
-            "type": "object",
-            "properties": {
-                "conversionTrackingId": {
-                    "type": "string"
-                }
-            }
-        },
-        "remarketingSetting": {
-            "type": "object",
-            "properties": {
-                "googleGlobalSiteTag": {
-                    "type": "string"
-                }
-            }
-        },
-        "payPerConversionEligibilityFailureReasons": {
-            "type": "array",
-            "items": {
-                "type": "string"
-            }
-        },
-        "id": {
-            "type": "string"
-        },
-        "descriptiveName": {
-            "type": "string"
-        },
-        "currencyCode": {
-            "type": "string"
-        },
-        "timeZone": {
-            "type": "string"
-        },
-        "autoTaggingEnabled": {
-            "type": "boolean"
-        },
-        "hasPartnersBadge": {
-            "type": "boolean"
-        },
-        "manager": {
-            "type": "boolean"
-        },
-        "testAccount": {
-            "type": "boolean"
-        },
-        "run_id": {
-            "type": [
-                "string",
-                "null"
-            ],
-            "description": "Unique identifier for this tap run"
+        "callConversionAction": {
+          "type": "string"
         }
+      }
+    },
+    "conversionTrackingSetting": {
+      "type": "object",
+      "properties": {
+        "conversionTrackingId": {
+          "type": "string"
+        }
+      }
+    },
+    "remarketingSetting": {
+      "type": "object",
+      "properties": {
+        "googleGlobalSiteTag": {
+          "type": "string"
+        }
+      }
+    },
+    "payPerConversionEligibilityFailureReasons": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "id": {
+      "type": "string"
+    },
+    "descriptiveName": {
+      "type": "string"
+    },
+    "currencyCode": {
+      "type": "string"
+    },
+    "timeZone": {
+      "type": "string"
+    },
+    "autoTaggingEnabled": {
+      "type": "boolean"
+    },
+    "hasPartnersBadge": {
+      "type": "boolean"
+    },
+    "manager": {
+      "type": "boolean"
+    },
+    "testAccount": {
+      "type": "boolean"
+    },
+    "run_id": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "description": "Unique identifier for this tap run"
     }
+  }
 }

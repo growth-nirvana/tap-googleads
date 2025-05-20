@@ -1,104 +1,104 @@
 {
-    "$schema": "http://json-schema.org/draft-07/schema#",
-    "type": "object",
-    "properties": {
-        "clickView__gclid": {
-            "type": [
-                "string",
-                "null"
-            ]
-        },
-        "clickView__adGroupAd": {
-            "type": [
-                "string",
-                "null"
-            ]
-        },
-        "clickView__keyword": {
-            "type": [
-                "string",
-                "null"
-            ]
-        },
-        "clickView__keywordInfo__matchType": {
-            "type": [
-                "string",
-                "null"
-            ]
-        },
-        "customer__id": {
-            "type": [
-                "string",
-                "null"
-            ]
-        },
-        "adGroup__id": {
-            "type": [
-                "string",
-                "null"
-            ]
-        },
-        "adGroup__name": {
-            "type": [
-                "string",
-                "null"
-            ]
-        },
-        "campaign__id": {
-            "type": [
-                "string",
-                "null"
-            ]
-        },
-        "campaign__name": {
-            "type": [
-                "string",
-                "null"
-            ]
-        },
-        "date": {
-            "format": "date",
-            "type": [
-                "string",
-                "null"
-            ]
-        },
-        "segments__adNetworkType": {
-            "type": [
-                "string",
-                "null"
-            ]
-        },
-        "segments__device": {
-            "type": [
-                "string",
-                "null"
-            ]
-        },
-        "segments__slot": {
-            "type": [
-                "string",
-                "null"
-            ]
-        },
-        "segments__clickType": {
-            "type": [
-                "string",
-                "null"
-            ]
-        },
-        "metrics__clicks": {
-            "type": [
-                "string",
-                "null"
-            ]
-        },
-        "run_id": {
-            "type": [
-                "string",
-                "null"
-            ],
-            "description": "Unique identifier for this tap run"
-        }
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "clickView__gclid": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "clickView__adGroupAd": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "clickView__keyword": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "clickView__keywordInfo__matchType": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "customer__id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "adGroup__id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "adGroup__name": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "campaign__id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "campaign__name": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "date": {
+      "format": "date",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "segments__adNetworkType": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "segments__device": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "segments__slot": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "segments__clickType": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "metrics__clicks": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "run_id": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "description": "Unique identifier for this tap run"
     }
+  }
 }

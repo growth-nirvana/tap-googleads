@@ -1,95 +1,95 @@
 {
-    "type": "object",
-    "properties": {
-        "customer__id": {
-            "type": [
-                "string",
-                "null"
-            ]
-        },
-        "customer__autoTaggingEnabled": {
-            "type": [
-                "boolean",
-                "null"
-            ]
-        },
-        "customer__currencyCode": {
-            "type": [
-                "string",
-                "null"
-            ]
-        },
-        "customer__descriptiveName": {
-            "type": [
-                "string",
-                "null"
-            ]
-        },
-        "customer__finalUrlSuffix": {
-            "type": [
-                "string",
-                "null"
-            ]
-        },
-        "customer__manager": {
-            "type": [
-                "boolean",
-                "null"
-            ]
-        },
-        "customer__optimizationScore": {
-            "type": [
-                "number",
-                "null"
-            ],
-            "format": "number-string"
-        },
-        "customer__payPerConversionEligibilityFailureReasons": {
-            "type": [
-                "array",
-                "null"
-            ],
-            "items": {
-                "type": "string"
-            }
-        },
-        "customer__testAccount": {
-            "type": [
-                "boolean",
-                "null"
-            ]
-        },
-        "customer__timeZone": {
-            "type": [
-                "string",
-                "null"
-            ]
-        },
-        "customer__trackingUrlTemplate": {
-            "type": [
-                "string",
-                "null"
-            ]
-        },
-        "customer__status": {
-            "type": [
-                "string",
-                "null"
-            ]
-        },
-        "segments__date": {
-            "type": [
-                "string",
-                "null"
-            ],
-            "format": "date"
-        },
-        "run_id": {
-            "type": [
-                "string",
-                "null"
-            ],
-            "description": "Unique identifier for this tap run"
-        }
+  "type": "object",
+  "properties": {
+    "customer__id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "customer__autoTaggingEnabled": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "customer__currencyCode": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "customer__descriptiveName": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "customer__finalUrlSuffix": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "customer__manager": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "customer__optimizationScore": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "format": "number-string"
+    },
+    "customer__payPerConversionEligibilityFailureReasons": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string"
+      }
+    },
+    "customer__testAccount": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "customer__timeZone": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "customer__trackingUrlTemplate": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "customer__status": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "segments__date": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date"
+    },
+    "run_id": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "description": "Unique identifier for this tap run"
     }
+  }
 }
