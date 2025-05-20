@@ -2,28 +2,59 @@
     "type": "object",
     "properties": {
         "customer_id": {
-            "type": ["string", "null"]
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "geoTargetConstant__resourceName": {
-            "type": ["string", "null"]
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "geoTargetConstant__status": {
-            "type": ["string", "null"]
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "geoTargetConstant__id": {
-            "type": ["string", "null"]
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "geoTargetConstant__name": {
-            "type": ["string", "null"]
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "geoTargetConstant__countryCode": {
-            "type": ["string", "null"]
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "geoTargetConstant__targetType": {
-            "type": ["string", "null"]
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "geoTargetConstant__canonicalName": {
-            "type": ["string", "null"]
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "run_id": {
+            "type": [
+                "string",
+                "null"
+            ],
+            "description": "Unique identifier for this tap run"
         }
     }
 }

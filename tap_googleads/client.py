@@ -3,6 +3,7 @@
 from datetime import datetime
 from backports.cached_property import cached_property
 from typing import Any, Dict, Optional
+import uuid
 
 import requests
 from singer_sdk.authenticators import OAuthAuthenticator
@@ -34,6 +35,9 @@ class GoogleAdsStream(RESTStream):
     records_jsonpath = "$[*]"  # Or override `parse_response`.
     next_page_token_jsonpath = "$.nextPageToken"  # Or override `get_next_page_token`.
     _LOG_REQUEST_METRIC_URLS: bool = True
+    
+    # Class variable to store the run_id shared across all streams
+    _shared_run_id = None
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -42,6 +46,15 @@ class GoogleAdsStream(RESTStream):
         elif self.config.get("customer_ids"):
             raw_customer_ids = self.config.get("customer_ids").split(",")
             self._config["customer_ids"] = list(map(_sanitise_customer_id, raw_customer_ids))
+        
+        # Generate a unique run_id for this tap run if not already set
+        if GoogleAdsStream._shared_run_id is None:
+            GoogleAdsStream._shared_run_id = f"{datetime.now().strftime('%Y%m%d_%H%M%S')}_{str(uuid.uuid4())[:8]}"
+
+    @property
+    def run_id(self) -> str:
+        """Return the unique run_id for this tap run."""
+        return GoogleAdsStream._shared_run_id
 
     def response_error_message(self, response: requests.Response) -> str:
         """Build error message for invalid http statuses.
@@ -201,6 +214,9 @@ class GoogleAdsStream(RESTStream):
         Yields:
             Record message objects.
         """
+        # Add run_id to every record
+        record['run_id'] = self.run_id
+        
         for stream_map in self.stream_maps:
             mapped_record = stream_map.transform(record)
             pop_deselected_record_properties(mapped_record, self.schema, self.mask, self.logger)

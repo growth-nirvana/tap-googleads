@@ -2,49 +2,101 @@
     "type": "object",
     "properties": {
         "customer__id": {
-            "type": ["string", "null"]
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "adGroup__id": {
-            "type": ["string", "null"]
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "adGroupAd__ad__id": {
-            "type": ["string", "null"]
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "adGroupAd__ad__displayUrl": {
-            "type": ["string", "null"]
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "adGroupAd__ad__finalAppUrls": {
-            "type": ["array", "null"],
+            "type": [
+                "array",
+                "null"
+            ],
             "items": {
-                "type": ["string", "null"]
+                "type": [
+                    "string",
+                    "null"
+                ]
             }
         },
         "adGroupAd__ad__finalMobileUrls": {
-            "type": ["array", "null"],
+            "type": [
+                "array",
+                "null"
+            ],
             "items": {
-                "type": ["string", "null"]
+                "type": [
+                    "string",
+                    "null"
+                ]
             }
         },
         "adGroupAd__ad__finalUrlSuffix": {
-            "type": ["string", "null"]
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "adGroupAd__ad__finalUrls": {
-            "type": ["array", "null"],
+            "type": [
+                "array",
+                "null"
+            ],
             "items": {
-                "type": ["string", "null"]
+                "type": [
+                    "string",
+                    "null"
+                ]
             }
         },
         "adGroupAd__ad__name": {
-            "type": ["string", "null"]
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "adGroupAd__status": {
-            "type": ["string", "null"]
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "adGroupAd__ad__trackingUrlTemplate": {
-            "type": ["string", "null"]
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "adGroupAd__ad__type": {
-            "type": ["string", "null"]
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "run_id": {
+            "type": [
+                "string",
+                "null"
+            ],
+            "description": "Unique identifier for this tap run"
         }
     }
 }
