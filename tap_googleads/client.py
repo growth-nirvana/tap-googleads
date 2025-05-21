@@ -120,12 +120,10 @@ class GoogleAdsStream(RESTStream):
         if "user_agent" in self.config:
             headers["User-Agent"] = self.config.get("user_agent")
         headers["developer-token"] = self.config["developer_token"]
+        
         if self.login_customer_id:
-            headers["login-customer-id"] = (
-                self.login_customer_id
-                # or self.context
-                # and self.context.get("customer_id")
-            )
+            headers["login-customer-id"] = self.login_customer_id
+            
         return headers
 
     def get_url_params(
@@ -141,10 +139,18 @@ class GoogleAdsStream(RESTStream):
         return params
 
     def get_records(self, context):
+        """Get records from the stream."""
+        self.logger.info("[DEBUG] Starting get_records for stream: %s", self.name)
         try:
-            yield from super().get_records(context)
+            for record in super().get_records(context):
+                self.logger.info("[DEBUG] Yielding record: %s", record)
+                yield record
         except ResumableAPIError as e:
+            self.logger.error("[DEBUG] ResumableAPIError in get_records: %s", str(e))
             self.logger.warning(e)
+        except Exception as e:
+            self.logger.error("[DEBUG] Unexpected error in get_records: %s", str(e))
+            raise
 
     @property
     def gaql(self):
@@ -181,12 +187,18 @@ class GoogleAdsStream(RESTStream):
 
     @cached_property
     def login_customer_id(self):
-        login_customer_id = self.config.get("login_customer_id")
-
-        if login_customer_id is None:
-            return
-
-        return _sanitise_customer_id(login_customer_id)
+        """Always return the top-level MCC account ID."""
+        # If login_customer_id is explicitly set in config, use that
+        if self.config.get("login_customer_id"):
+            return _sanitise_customer_id(self.config.get("login_customer_id"))
+        
+        # Otherwise, use the first customer ID as the MCC account
+        # This assumes the first ID in the list is the MCC account
+        customer_ids = self.customer_ids
+        if customer_ids and len(customer_ids) > 0:
+            return customer_ids[0]
+        
+        return None
 
 
     def _generate_record_messages(
@@ -219,6 +231,79 @@ class GoogleAdsStream(RESTStream):
                     version=None,
                     time_extracted=utc_now(),
                 )
+
+    def prepare_request_payload(self, context: Optional[dict], next_page_token: Optional[Any]) -> Optional[dict]:
+        """Prepare the data payload for the REST API request.
+
+        Args:
+            context: The stream context.
+            next_page_token: The next page index or value.
+
+        Returns:
+            A dictionary with the JSON body for a POST request.
+        """
+        if hasattr(self, 'path') and 'googleAds:search' in self.path:
+            try:
+                return {"query": self.gaql}
+            except NotImplementedError:
+                return None
+        return None
+
+    def request_records(self, context):
+        """Override to log outgoing HTTP request details for debugging."""
+        self.logger.info("[DEBUG] ===== Starting request_records for stream: %s =====", self.name)
+        
+        # Prepare request details
+        url = self.get_url(context)
+        method = self.rest_method
+        headers = self.http_headers
+        params = self.get_url_params(context, None)
+        body = getattr(self, 'body', None)
+        if callable(body):
+            body = body(context)
+        
+        # Log request details
+        self.logger.info("[DEBUG] Request Details:")
+        self.logger.info("[DEBUG] Stream Name: %s", self.name)
+        self.logger.info("[DEBUG] Processing customer_id: %s", context.get('customer_id') if context else None)
+        self.logger.info("[DEBUG] Using login_customer_id: %s", self.login_customer_id)
+        self.logger.info("[DEBUG] URL: %s", url)
+        self.logger.info("[DEBUG] Method: %s", method)
+        self.logger.info("[DEBUG] Headers: %s", headers)
+        self.logger.info("[DEBUG] Params: %s", params)
+        self.logger.info("[DEBUG] Body: %s", body)
+        
+        # Only try to log GAQL for streams that use it
+        if hasattr(self, 'path') and 'googleAds:search' in self.path:
+            try:
+                self.logger.info("[DEBUG] GAQL Query: %s", self.gaql)
+            except NotImplementedError:
+                self.logger.info("[DEBUG] GAQL Query: Not implemented for this stream")
+        
+        # Make the request
+        self.logger.info("[DEBUG] Making API request...")
+        try:
+            response = super().request_records(context)
+            self.logger.info("[DEBUG] Request completed successfully")
+            
+            # Log response details if available
+            if hasattr(response, 'response'):
+                self.logger.info("[DEBUG] Response Details:")
+                self.logger.info("[DEBUG] Status Code: %s", response.response.status_code)
+                self.logger.info("[DEBUG] Headers: %s", response.response.headers)
+                try:
+                    self.logger.info("[DEBUG] Response Body: %s", response.response.json())
+                except:
+                    self.logger.info("[DEBUG] Response Body: %s", response.response.text)
+            else:
+                self.logger.info("[DEBUG] No response object available")
+            
+            return response
+        except Exception as e:
+            self.logger.error("[DEBUG] Error making request: %s", str(e))
+            raise
+        finally:
+            self.logger.info("[DEBUG] ===== Completed request_records for stream: %s =====", self.name)
 
 def _sanitise_customer_id(customer_id: str):
     return customer_id.replace("-", "").strip()
