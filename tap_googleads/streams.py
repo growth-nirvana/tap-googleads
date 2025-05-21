@@ -109,14 +109,21 @@ class CustomerHierarchyStream(GoogleAdsStream):
 
         super().validate_response(response)
 
-
     def get_records(self, context):
         for customer_id in context.get("customer_ids", []):
             try:
                 context["customer_id"] = customer_id
-                yield from super().get_records(context)
+                records = list(super().get_records(context))
+                for record in records:
+                    yield record
+                    if record.get("manager") == True and record.get("status") == "ENABLED":
+                        manager_id = record.get("id")
+                        context["customer_id"] = manager_id
+                        child_records = list(super().get_records(context))
+                        for child_record in child_records:
+                            yield child_record
             except Exception as e:
-                self.logger.error(f"Error processing resource name {customer_id}: {str(e)}")
+                self.logger.error(f"Error processing customer ID {customer_id}: {str(e)}")
                 continue
 
     def post_process(self, row, context):
@@ -137,14 +144,14 @@ class CustomerHierarchyStream(GoogleAdsStream):
     def get_child_context(self, record: Record, context):
         customer_id = record.get("customer_id")
         is_active_client = record.get("manager") == False and record.get("status") == "ENABLED"
+        is_manager = record.get("manager") == True and record.get("status") == "ENABLED"
         already_synced = customer_id in self.seen_customer_ids
 
         family_line = self.get_customer_family_line(record.get("resourceName"))
 
-        if is_active_client and not already_synced:
+        if (is_active_client or is_manager) and not already_synced:
             if not self.customer_ids or len(set(self.customer_ids).intersection(set(family_line))) > 0:
                 return {"customer_id": record.get("id"), "is_active_client": is_active_client}
-        
         return None
 
 class ReportsStream(GoogleAdsStream):
