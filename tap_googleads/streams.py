@@ -1647,6 +1647,49 @@ class CampaignPerformanceByLocation(ReportsStream):
     replication_key = None
     schema_filepath = SCHEMAS_DIR / "campaign_performance_by_location.json"
 
+class CampaignStatsStream(ReportsStream):
+    """Campaign Stats Stream"""
+
+    @property
+    def gaql(self):
+        return f"""
+        SELECT
+            customer.id,
+            campaign.id,
+            campaign.base_campaign,
+            metrics.conversions_value,
+            metrics.conversions,
+            metrics.interactions,
+            segments.ad_network_type,
+            metrics.interaction_event_types,
+            metrics.impressions,
+            segments.device,
+            metrics.view_through_conversions,
+            metrics.active_view_viewability,
+            metrics.active_view_impressions,
+            metrics.clicks,
+            metrics.active_view_measurable_impressions,
+            metrics.active_view_measurable_cost_micros,
+            metrics.active_view_measurability,
+            metrics.cost_micros,
+            segments.date
+        FROM
+            campaign
+        WHERE segments.date >= {self.start_date} and segments.date <= {self.end_date}
+        """
+
+    records_jsonpath = "$.results[*]"
+    name = "stream_campaign_stats"
+    primary_keys = [
+        "customer__id",
+        "campaign__id",
+        "segments__date",
+        "segments__device",
+        "segments__adNetworkType"
+    ]
+    replication_key = None
+    schema_filepath = SCHEMAS_DIR / "campaign_stats.json"
+
 class GeoPerformance(ReportsStream):
     """Geo performance"""
 
