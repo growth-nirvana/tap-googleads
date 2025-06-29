@@ -1,0 +1,14 @@
+{
+  "type": "object",
+  "properties": {
+    "customer__id": { "type": ["string", "null"] },
+    "landingPageView__unexpandedFinalUrl": { "type": ["string", "null"] },
+    "metrics__conversions": { "type": ["number", "null"] },
+    "metrics__conversionsValue": { "type": ["number", "null"] },
+    "metrics__allConversions": { "type": ["number", "null"] },
+    "metrics__allConversionsValue": { "type": ["number", "null"] },
+    "segments__conversionActionName": { "type": ["string", "null"] },
+    "segments__date": { "type": ["string", "null"], "format": "date" },
+    "run_id": { "type": ["integer", "null"], "description": "Unique identifier for this tap run" }
+  }
+} 
