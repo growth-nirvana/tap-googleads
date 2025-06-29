@@ -1797,3 +1797,58 @@ class CallViewReportStream(ReportsStream):
     primary_keys = ["customer__id", "campaign__id", "adGroup__id", "callView__resourceName"]
     replication_key = None
     schema_filepath = SCHEMAS_DIR / "call_view_report.json"
+
+class LandingPageReportStream(ReportsStream):
+    """Landing Page Report stream using landing_page_view resource."""
+
+    @property
+    def gaql(self):
+        return f"""
+            SELECT
+                customer.id,
+                landing_page_view.unexpanded_final_url,
+                metrics.clicks,
+                metrics.impressions,
+                metrics.conversions,
+                metrics.all_conversions,
+                metrics.conversions_value,
+                metrics.all_conversions_value,
+                metrics.cost_micros,
+                metrics.mobile_friendly_clicks_percentage,
+                metrics.speed_score,
+                metrics.valid_accelerated_mobile_pages_clicks_percentage,
+                segments.date
+            FROM landing_page_view
+            WHERE segments.date >= {self.start_date} and segments.date <= {self.end_date}
+        """
+
+    records_jsonpath = "$.results[*]"
+    name = "stream_landing_page_report"
+    primary_keys = ["customer__id", "segments__date"]
+    replication_key = None
+    schema_filepath = SCHEMAS_DIR / "landing_page_report.json"
+
+class LandingPageReportCustomConversionsStream(ReportsStream):
+    """Landing Page Report Custom Conversions stream using landing_page_view resource."""
+
+    @property
+    def gaql(self):
+        return f"""
+            SELECT
+                customer.id,
+                landing_page_view.unexpanded_final_url,
+                metrics.conversions,
+                metrics.conversions_value,
+                metrics.all_conversions,
+                metrics.all_conversions_value,
+                segments.conversion_action_name,
+                segments.date
+            FROM landing_page_view
+            WHERE segments.date >= {self.start_date} and segments.date <= {self.end_date}
+        """
+
+    records_jsonpath = "$.results[*]"
+    name = "stream_landing_page_report_custom_conversions"
+    primary_keys = ["customer__id", "segments__date"]
+    replication_key = None
+    schema_filepath = SCHEMAS_DIR / "landing_page_report_custom_conversions.json"
