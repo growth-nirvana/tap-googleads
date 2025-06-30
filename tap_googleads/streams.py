@@ -1806,6 +1806,7 @@ class LandingPageReportStream(ReportsStream):
         return f"""
             SELECT
                 customer.id,
+                campaign.id,
                 landing_page_view.unexpanded_final_url,
                 metrics.clicks,
                 metrics.impressions,
@@ -1836,6 +1837,7 @@ class LandingPageReportCustomConversionsStream(ReportsStream):
         return f"""
             SELECT
                 customer.id,
+                campaign.id,
                 landing_page_view.unexpanded_final_url,
                 metrics.conversions,
                 metrics.conversions_value,

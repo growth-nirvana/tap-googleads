@@ -2,6 +2,7 @@
   "type": "object",
   "properties": {
     "customer__id": { "type": ["string", "null"] },
+    "campaign__id": { "type": ["string", "null"] },
     "landingPageView__unexpandedFinalUrl": { "type": ["string", "null"] },
     "metrics__conversions": { "type": ["number", "null"] },
     "metrics__conversionsValue": { "type": ["number", "null"] },
