@@ -119,11 +119,12 @@ class CustomerHierarchyStream(GoogleAdsStream):
                     if record.get("manager") == True and record.get("status") == "ENABLED":
                         manager_id = record.get("id")
                         context["customer_id"] = manager_id
+                        self.logger.info(f"Syncing children for manager {manager_id}")
                         child_records = list(super().get_records(context))
                         for child_record in child_records:
                             yield child_record
             except Exception as e:
-                self.logger.error(f"Error processing customer ID {customer_id}: {str(e)}")
+                self.logger.info(f"Error processing customer ID {customer_id}: {str(e)}")
                 continue
 
     def post_process(self, row, context):
