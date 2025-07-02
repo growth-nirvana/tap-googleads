@@ -156,7 +156,6 @@ class GoogleAdsStream(RESTStream):
         self.logger.info("[DEBUG] Starting get_records for stream: %s", self.name)
         try:
             for record in super().get_records(context):
-                self.logger.info("[DEBUG] Yielding record: %s", record)
                 yield record
         except ResumableAPIError as e:
             self.logger.error("[DEBUG] ResumableAPIError in get_records: %s", str(e))
