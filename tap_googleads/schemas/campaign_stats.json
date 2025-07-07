@@ -57,6 +57,13 @@
         },
         "metrics__costMicros": {
             "type": ["string", "null"]
+        },
+        "run_id": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "description": "Unique identifier for this tap run"
         }
     }
 } 
