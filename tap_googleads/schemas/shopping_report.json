@@ -50,9 +50,117 @@
         "null"
       ]
     },
+    "metrics__costOfGoodsSoldMicros": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "metrics__costPerAllConversions": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "metrics__costPerConversion": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "metrics__crossDeviceConversions": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "metrics__crossDeviceConversionsValueMicros": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "metrics__crossSellCostOfGoodsSoldMicros": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "metrics__crossSellGrossProfitMicros": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "metrics__crossSellRevenueMicros": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "metrics__crossSellUnitsSold": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "metrics__grossProfitMargin": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "metrics__grossProfitMicros": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
     "metrics__impressions": {
       "type": [
         "string",
+        "null"
+      ]
+    },
+    "metrics__leadCostOfGoodsSoldMicros": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "metrics__leadGrossProfitMicros": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "metrics__leadRevenueMicros": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "metrics__leadUnitsSold": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "metrics__orders": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "metrics__revenueMicros": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "metrics__unitsSold": {
+      "type": [
+        "number",
         "null"
       ]
     },
