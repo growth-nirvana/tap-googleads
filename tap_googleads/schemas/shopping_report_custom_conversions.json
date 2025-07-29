@@ -1,0 +1,73 @@
+{
+  "type": "object",
+  "properties": {
+    "customer__id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "segments__date": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date"
+    },
+    "metrics__allConversions": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "metrics__allConversionsValue": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "metrics__conversions": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "metrics__conversionsValue": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "segments__conversionActionName": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "segments__productBrand": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "segments__productTitle": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "segments__resourceName": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "run_id": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "description": "Unique identifier for this tap run"
+    }
+  }
+} 

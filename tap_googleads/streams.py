@@ -1898,3 +1898,60 @@ class LandingPageReportCustomConversionsStream(ReportsStream):
     primary_keys = ["customer__id", "segments__date"]
     replication_key = None
     schema_filepath = SCHEMAS_DIR / "landing_page_report_custom_conversions.json"
+
+class ShoppingReportStream(ReportsStream):
+    """Define custom stream for shopping report."""
+    
+    @property
+    def gaql(self):
+        return f"""
+            SELECT
+                customer.id,
+                segments.date,
+                metrics.all_conversions,
+                metrics.all_conversions_value,
+                metrics.clicks,
+                metrics.conversions,
+                metrics.conversions_value,
+                metrics.cost_micros,
+                metrics.impressions,
+                segments.product_brand,
+                segments.product_title
+            FROM
+                shopping_performance_view
+            WHERE segments.date >= {self.start_date} and segments.date <= {self.end_date}
+        """
+    
+    records_jsonpath = "$.results[*]"
+    name = "stream_shopping_report"
+    primary_keys = ["customer__id", "segments__date"]
+    replication_key = None
+    schema_filepath = SCHEMAS_DIR / "shopping_report.json"
+
+
+class ShoppingReportCustomConversionsStream(ReportsStream):
+    """Define custom stream for shopping report with custom conversions."""
+    
+    @property
+    def gaql(self):
+        return f"""
+            SELECT
+                customer.id,
+                segments.date,
+                metrics.all_conversions,
+                metrics.all_conversions_value,
+                metrics.conversions,
+                metrics.conversions_value,
+                segments.conversion_action_name,
+                segments.product_brand,
+                segments.product_title
+            FROM
+                shopping_performance_view
+            WHERE segments.date >= {self.start_date} and segments.date <= {self.end_date}
+        """
+    
+    records_jsonpath = "$.results[*]"
+    name = "stream_shopping_report_custom_conversions"
+    primary_keys = ["customer__id", "segments__date"]
+    replication_key = None
+    schema_filepath = SCHEMAS_DIR / "shopping_report_custom_conversions.json"
