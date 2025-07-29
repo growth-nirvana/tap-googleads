@@ -1914,7 +1914,17 @@ class ShoppingReportStream(ReportsStream):
                 metrics.conversions,
                 metrics.conversions_value,
                 metrics.cost_micros,
+                metrics.cost_of_goods_sold_micros,
+                metrics.gross_profit_margin,
+                metrics.gross_profit_micros,
                 metrics.impressions,
+                metrics.lead_cost_of_goods_sold_micros,
+                metrics.lead_gross_profit_micros,
+                metrics.lead_revenue_micros,
+                metrics.lead_units_sold,
+                metrics.orders,
+                metrics.revenue_micros,
+                metrics.units_sold,
                 segments.product_brand,
                 segments.product_title
             FROM
