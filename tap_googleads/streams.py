@@ -1088,6 +1088,7 @@ class ResponsiveSearchAdAssetStream(ReportsStream):
             ad_group_ad_asset_view.pinned_field,
             ad_group_ad_asset_view.enabled,
             ad_group_ad_asset_view.performance_label,
+            ad_group_ad_asset_view.source,
             asset.text_asset.text,
             asset.image_asset.file_size,
             asset.image_asset.full_size.url,
