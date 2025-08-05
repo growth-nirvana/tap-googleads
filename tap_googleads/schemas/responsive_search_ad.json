@@ -19,6 +19,12 @@
         "null"
       ]
     },
+    "adGroupAd__ad__type": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
     "adGroupAd__ad__responsiveSearchAd__descriptions": {
       "type": [
         "array",
@@ -44,6 +50,18 @@
       ]
     },
     "adGroupAd__ad__responsiveSearchAd__path2": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "adGroupAd__status": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "adGroupAd__primaryStatus": {
       "type": [
         "string",
         "null"

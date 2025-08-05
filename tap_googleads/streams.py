@@ -1055,10 +1055,13 @@ class ResponsiveSearchAdStream(ReportsStream):
           customer.id,
           ad_group.id,
           ad_group_ad.ad.id,
+          ad_group_ad.ad.type,
           ad_group_ad.ad.responsive_search_ad.descriptions,
           ad_group_ad.ad.responsive_search_ad.headlines,
           ad_group_ad.ad.responsive_search_ad.path1,
-          ad_group_ad.ad.responsive_search_ad.path2
+          ad_group_ad.ad.responsive_search_ad.path2,
+          ad_group_ad.status,
+          ad_group_ad.primary_status
         from
           ad_group_ad
         """
@@ -1068,6 +1071,44 @@ class ResponsiveSearchAdStream(ReportsStream):
     primary_keys = ["customer__id", "adGroup__id", "adGroupAd__ad__id"]
     replication_key = None
     schema_filepath = SCHEMAS_DIR / "responsive_search_ad.json"
+
+class ResponsiveSearchAdAssetStream(ReportsStream):
+    """Fetches RSA headlines and descriptions from the asset-based view."""
+
+    @property
+    def gaql(self):
+        return f"""
+        SELECT
+            customer.id,
+            campaign.id,
+            ad_group.id,
+            ad_group_ad.ad.id,
+            ad_group_ad_asset_view.asset,
+            ad_group_ad_asset_view.field_type,
+            ad_group_ad_asset_view.pinned_field,
+            ad_group_ad_asset_view.enabled,
+            ad_group_ad_asset_view.performance_label,
+            asset.text_asset.text,
+            asset.image_asset.file_size,
+            asset.image_asset.full_size.url,
+            asset.image_asset.full_size.height_pixels,
+            asset.image_asset.full_size.width_pixels,
+            asset.name,
+            asset.type
+        FROM ad_group_ad_asset_view
+        """
+
+    records_jsonpath = "$.results[*]"
+    name = "stream_responsive_search_ad_assets"
+    primary_keys = [
+        "customer__id",
+        "campaign__id",
+        "adGroup__id",
+        "adGroupAd__ad__id",
+        "asset"
+    ]
+    replication_key = None
+    schema_filepath = SCHEMAS_DIR / "responsive_search_ad_assets.json"
 
 class SearchQueryReportStream(ReportsStream):
     """Define custom stream for search query reporting."""
