@@ -16,6 +16,12 @@
     "asset": {
       "type": ["string", "null"]
     },
+    "adGroupAdAssetView__asset": {
+      "type": ["string", "null"]
+    },
+    "asset__resourceName": {
+      "type": ["string", "null"]
+    },
     "adGroupAdAssetView__fieldType": {
       "type": ["string", "null"],
       "description": "Whether this asset is a HEADLINE or DESCRIPTION"
@@ -28,6 +34,10 @@
       "type": ["boolean", "null"],
       "description": "Whether this asset is enabled"
     },
+    "adGroupAdAssetView__source": {
+      "type": ["string", "null"],
+      "description": "Source of this asset (e.g. USER, CAMPAIGN, AD_GROUP, CUSTOMER)"
+    },
     "adGroupAdAssetView__performanceLabel": {
       "type": ["string", "null"],
       "description": "Performance label of this asset (e.g. Excellent, Good, Average, Poor)"
@@ -39,6 +49,9 @@
     "adGroupAdAssetView__pinnedField": {
       "type": ["string", "null"],
       "description": "If this RSA asset is pinned to a specific slot like HEADLINE_1"
+    },
+    "asset__imageAsset__fullSize": {
+      "type": ["object", "null"]
     },
     "asset__imageAsset__fileSize": {
       "type": ["string", "null"]
