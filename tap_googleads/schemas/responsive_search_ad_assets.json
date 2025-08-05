@@ -1,0 +1,81 @@
+{
+  "type": "object",
+  "properties": {
+    "customer__id": {
+      "type": ["string", "null"]
+    },
+    "campaign__id": {
+      "type": ["string", "null"]
+    },
+    "adGroup__id": {
+      "type": ["string", "null"]
+    },
+    "adGroupAd__ad__id": {
+      "type": ["string", "null"]
+    },
+    "asset": {
+      "type": ["string", "null"]
+    },
+    "adGroupAdAssetView__fieldType": {
+      "type": ["string", "null"],
+      "description": "Whether this asset is a HEADLINE or DESCRIPTION"
+    },
+    "adGroupAdAssetView__policySummary__approvalStatus": {
+      "type": ["string", "null"],
+      "description": "Approval status of this asset (e.g. APPROVED, DISAPPROVED)"
+    },
+    "adGroupAdAssetView__enabled": {
+      "type": ["boolean", "null"],
+      "description": "Whether this asset is enabled"
+    },
+    "adGroupAdAssetView__performanceLabel": {
+      "type": ["string", "null"],
+      "description": "Performance label of this asset (e.g. Excellent, Good, Average, Poor)"
+    },
+    "asset__textAsset__text": {
+      "type": ["string", "null"],
+      "description": "The actual RSA headline or description text"
+    },
+    "adGroupAdAssetView__pinnedField": {
+      "type": ["string", "null"],
+      "description": "If this RSA asset is pinned to a specific slot like HEADLINE_1"
+    },
+    "asset__imageAsset__fileSize": {
+      "type": ["string", "null"]
+    },
+    "asset__imageAsset__fullSize__url": {
+      "type": ["string", "null"]
+    },
+    "asset__imageAsset__fullSize__heightPixels": {
+      "type": ["integer", "null"]
+    },
+    "asset__imageAsset__fullSize__widthPixels": {
+      "type": ["integer", "null"]
+    },
+    "asset__name": {
+      "type": ["string", "null"]
+    },
+    "asset__type": {
+      "type": ["string", "null"]
+    },
+    "metrics__clicks": {
+      "type": ["string", "null"]
+    },
+    "metrics__impressions": {
+      "type": ["string", "null"]
+    },
+    "metrics__conversions": {
+      "type": ["integer", "null"]
+    },
+    "metrics__costMicros": {
+      "type": ["string", "null"]
+    },
+    "segments__date": {
+      "type": ["string", "null"]
+    },
+    "run_id": {
+      "type": ["integer", "null"],
+      "description": "Unique identifier for this tap run"
+    }
+  }
+}
