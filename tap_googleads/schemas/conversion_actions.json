@@ -1,0 +1,131 @@
+{
+  "type": "object",
+  "properties": {
+    "customer__id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "conversionAction__id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "conversionAction__name": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "conversionAction__status": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "conversionAction__type": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "conversionAction__category": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "conversionAction__origin": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "conversionAction__primaryForGoal": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "conversionAction__includeInConversionsMetric": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "conversionAction__countingType": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "conversionAction__clickThroughLookbackWindowDays": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "conversionAction__viewThroughLookbackWindowDays": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "conversionAction__valueSettings__defaultValue": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "conversionAction__valueSettings__defaultCurrencyCode": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "conversionAction__valueSettings__alwaysUseDefaultValue": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "conversionAction__phoneCallDurationSeconds": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "conversionAction__appId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "conversionAction__mobileAppVendor": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "conversionAction__ownerCustomer": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "conversionAction__resourceName": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "run_id": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    }
+  }
+}

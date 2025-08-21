@@ -2007,3 +2007,41 @@ class ShoppingReportCustomConversionsStream(ReportsStream):
     primary_keys = ["customer__id", "segments__date"]
     replication_key = None
     schema_filepath = SCHEMAS_DIR / "shopping_report_custom_conversions.json"
+
+
+class ConversionActionsStream(ReportsStream):
+    """Define custom stream for conversion actions."""
+    
+    @property
+    def gaql(self):
+        return """
+            SELECT
+                customer.id,
+                conversion_action.id,
+                conversion_action.name,
+                conversion_action.status,
+                conversion_action.type,
+                conversion_action.category,
+                conversion_action.origin,
+                conversion_action.primary_for_goal,
+                conversion_action.include_in_conversions_metric,
+                conversion_action.counting_type,
+                conversion_action.click_through_lookback_window_days,
+                conversion_action.view_through_lookback_window_days,
+                conversion_action.value_settings.default_value,
+                conversion_action.value_settings.default_currency_code,
+                conversion_action.value_settings.always_use_default_value,
+                conversion_action.phone_call_duration_seconds,
+                conversion_action.app_id,
+                conversion_action.mobile_app_vendor,
+                conversion_action.owner_customer,
+                conversion_action.resource_name
+            FROM
+                conversion_action
+        """
+    
+    records_jsonpath = "$.results[*]"
+    name = "stream_conversion_actions"
+    primary_keys = ["customer__id", "conversionAction__id"]
+    replication_key = None
+    schema_filepath = SCHEMAS_DIR / "conversion_actions.json"
