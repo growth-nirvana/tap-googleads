@@ -455,7 +455,6 @@ class CampaignReportCustomConversionsStream(ReportsStream):
                 metrics.conversions,
                 metrics.conversions_value,
                 segments.conversion_action_name,
-                segments.conversion_action,
                 segments.date
             from
                 campaign
