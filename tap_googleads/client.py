@@ -1,6 +1,6 @@
 """REST client handling, including GoogleAdsStream base class."""
 
-from datetime import datetime
+from datetime import datetime, timedelta
 from backports.cached_property import cached_property
 from typing import Any, Dict, Optional
 import uuid
@@ -146,9 +146,8 @@ class GoogleAdsStream(RESTStream):
         params: dict = {}
         if next_page_token:
             params["pageToken"] = next_page_token
-        if self.replication_key:
-            params["sort"] = "asc"
-            params["order_by"] = self.replication_key
+        # Note: Google Ads API doesn't support sort/order_by URL parameters
+        # Ordering is handled through the GAQL query itself
         return params
 
     def get_records(self, context):
@@ -184,6 +183,25 @@ class GoogleAdsStream(RESTStream):
     @cached_property
     def end_date(self):
         return parse(self.config["end_date"]).strftime(r"'%Y-%m-%d'") if self.config.get("end_date") else datetime.now().strftime(r"'%Y-%m-%d'")
+
+    @cached_property
+    def week_start_date(self):
+        """Convert start_date to the Monday of that week for weekly reporting."""
+        try:
+            start_date = datetime.fromisoformat(self.config["start_date"])
+        except Exception:
+            start_date = datetime.strptime(self.config["start_date"], "%Y-%m-%dT%H:%M:%SZ")
+        # Get the Monday of the week containing start_date
+        monday = start_date - timedelta(days=start_date.weekday())
+        return monday.strftime(r"'%Y-%m-%d'")
+
+    @cached_property
+    def week_end_date(self):
+        """Convert end_date to the Monday of that week for weekly reporting."""
+        end_date = parse(self.config["end_date"]) if self.config.get("end_date") else datetime.now()
+        # Get the Monday of the week containing end_date
+        monday = end_date - timedelta(days=end_date.weekday())
+        return monday.strftime(r"'%Y-%m-%d'")
 
     @cached_property
     def customer_ids(self):

@@ -1,0 +1,132 @@
+{
+  "type": "object",
+  "properties": {
+    "customer__id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "customer__descriptiveName": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "adGroup__campaign": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "adGroup__id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "adGroup__name": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "segments__week": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "metrics__clicks": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "metrics__contentRankLostImpressionShare": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "metrics__costMicros": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "metrics__impressions": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "metrics__phoneImpressions": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "metrics__searchTopImpressionShare": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "metrics__searchAbsoluteTopImpressionShare": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "metrics__searchBudgetLostAbsoluteTopImpressionShare": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "metrics__searchBudgetLostTopImpressionShare": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "metrics__searchExactMatchImpressionShare": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "metrics__searchImpressionShare": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "metrics__searchRankLostAbsoluteTopImpressionShare": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "metrics__searchRankLostImpressionShare": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "metrics__searchRankLostTopImpressionShare": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "run_id": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "description": "Unique identifier for this tap run"
+    }
+  }
+}
