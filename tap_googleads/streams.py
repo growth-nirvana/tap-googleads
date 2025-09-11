@@ -1556,6 +1556,43 @@ class AdGroupsPerformance(ReportsStream):
     replication_key = None
     schema_filepath = SCHEMAS_DIR / "adgroups_performance.json"
 
+class AdGroupReportByWeekStream(ReportsStream):
+    """Ad Group Report by Week - Weekly performance data for ad groups"""
+
+    @property
+    def gaql(self):
+        return f"""
+        SELECT
+            customer.id,
+            customer.descriptive_name,
+            ad_group.campaign,
+            ad_group.id,
+            ad_group.name,
+            segments.week,
+            metrics.clicks,
+            metrics.content_rank_lost_impression_share,
+            metrics.cost_micros,
+            metrics.impressions,
+            metrics.phone_impressions,
+            metrics.search_top_impression_share,
+            metrics.search_absolute_top_impression_share,
+            metrics.search_budget_lost_absolute_top_impression_share,
+            metrics.search_budget_lost_top_impression_share,
+            metrics.search_exact_match_impression_share,
+            metrics.search_impression_share,
+            metrics.search_rank_lost_absolute_top_impression_share,
+            metrics.search_rank_lost_impression_share,
+            metrics.search_rank_lost_top_impression_share
+        FROM ad_group
+        WHERE segments.week >= {self.week_start_date} AND segments.week <= {self.week_end_date}
+        """
+
+    records_jsonpath = "$.results[*]"
+    name = "stream_ad_group_report_by_week"
+    primary_keys = ["adGroup__id", "segments__week"]
+    replication_key = None
+    schema_filepath = SCHEMAS_DIR / "ad_group_report_by_week.json"
+
 class AgeReportStream(ReportsStream):
     """Age Report"""
 
