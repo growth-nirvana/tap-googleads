@@ -146,8 +146,9 @@ class GoogleAdsStream(RESTStream):
         params: dict = {}
         if next_page_token:
             params["pageToken"] = next_page_token
-        # Note: Google Ads API doesn't support sort/order_by URL parameters
-        # Ordering is handled through the GAQL query itself
+        if self.replication_key:
+            params["sort"] = "asc"
+            params["order_by"] = self.replication_key
         return params
 
     def get_records(self, context):
