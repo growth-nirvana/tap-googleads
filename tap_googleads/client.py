@@ -205,6 +205,25 @@ class GoogleAdsStream(RESTStream):
         return monday.strftime(r"'%Y-%m-%d'")
 
     @cached_property
+    def month_start_date(self):
+        """Convert start_date to the first day of that month for monthly reporting."""
+        try:
+            start_date = datetime.fromisoformat(self.config["start_date"])
+        except Exception:
+            start_date = datetime.strptime(self.config["start_date"], "%Y-%m-%dT%H:%M:%SZ")
+        # Get the first day of the month
+        first_day = start_date.replace(day=1)
+        return first_day.strftime(r"'%Y-%m-%d'")
+
+    @cached_property
+    def month_end_date(self):
+        """Convert end_date to the first day of that month for monthly reporting."""
+        end_date = parse(self.config["end_date"]) if self.config.get("end_date") else datetime.now()
+        # Get the first day of the month
+        first_day = end_date.replace(day=1)
+        return first_day.strftime(r"'%Y-%m-%d'")
+
+    @cached_property
     def customer_ids(self):
         customer_ids = self.config.get("customer_ids")
         customer_id = self.config.get("customer_id")
