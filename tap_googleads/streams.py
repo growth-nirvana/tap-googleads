@@ -467,6 +467,47 @@ class CampaignReportCustomConversionsStream(ReportsStream):
     replication_key = None
     schema_filepath = SCHEMAS_DIR / "campaign_report_custom_conversions.json"
 
+class CampaignReportByMonthStream(ReportsStream):
+    """Campaign Report by Month - Monthly performance data for campaigns"""
+
+    @property
+    def gaql(self):
+        return f"""
+            SELECT
+                customer.id,
+                campaign.id,
+                campaign.name,
+                segments.month,
+                metrics.absolute_top_impression_percentage,
+                metrics.all_conversions,
+                metrics.clicks,
+                metrics.conversions,
+                metrics.conversions_value,
+                metrics.cost_micros,
+                metrics.impressions,
+                metrics.phone_calls,
+                metrics.search_budget_lost_absolute_top_impression_share,
+                metrics.search_budget_lost_impression_share,
+                metrics.search_budget_lost_top_impression_share,
+                metrics.search_absolute_top_impression_share,
+                metrics.search_exact_match_impression_share,
+                metrics.search_impression_share,
+                metrics.search_rank_lost_absolute_top_impression_share,
+                metrics.search_rank_lost_impression_share,
+                metrics.search_rank_lost_top_impression_share,
+                metrics.search_top_impression_share,
+                metrics.top_impression_percentage
+            FROM
+                campaign
+            WHERE segments.month >= {self.month_start_date} AND segments.month <= {self.month_end_date}
+        """
+
+    records_jsonpath = "$.results[*]"
+    name = "stream_campaign_report_by_month"
+    primary_keys = ["customer__id", "campaign__id", "segments__month"]
+    replication_key = None
+    schema_filepath = SCHEMAS_DIR / "campaign_report_by_month.json"
+
 class CityReportStream(ReportsStream):
     """Define custom stream for city-level reporting."""
 
@@ -1445,6 +1486,7 @@ class AdReportStream(ReportsStream):
             metrics.conversions_value,
             metrics.cost_micros,
             metrics.impressions,
+            metrics.phone_calls,
             metrics.view_through_conversions,
             segments.date
         FROM
