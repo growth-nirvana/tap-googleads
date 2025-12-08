@@ -1527,7 +1527,6 @@ class AdReportStream(ReportsStream):
             metrics.conversions_value,
             metrics.cost_micros,
             metrics.impressions,
-            metrics.phone_calls,
             metrics.view_through_conversions,
             segments.date
         FROM
