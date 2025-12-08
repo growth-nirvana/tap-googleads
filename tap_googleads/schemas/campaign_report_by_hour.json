@@ -19,9 +19,16 @@
         "null"
       ]
     },
-    "segments__month": {
+    "segments__date": {
       "type": [
         "string",
+        "null"
+      ],
+      "format": "date"
+    },
+    "segments__hour": {
+      "type": [
+        "integer",
         "null"
       ]
     },
@@ -97,12 +104,6 @@
         "null"
       ]
     },
-    "metrics__searchExactMatchImpressionShare": {
-      "type": [
-        "number",
-        "null"
-      ]
-    },
     "metrics__searchImpressionShare": {
       "type": [
         "number",
@@ -148,5 +149,4 @@
     }
   }
 }
-
 

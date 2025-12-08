@@ -508,6 +508,47 @@ class CampaignReportByMonthStream(ReportsStream):
     replication_key = None
     schema_filepath = SCHEMAS_DIR / "campaign_report_by_month.json"
 
+class CampaignReportByHourStream(ReportsStream):
+    """Campaign Report by Hour - Hourly performance data for campaigns"""
+
+    @property
+    def gaql(self):
+        return f"""
+            SELECT
+                customer.id,
+                campaign.id,
+                campaign.name,
+                segments.date,
+                segments.hour,
+                metrics.absolute_top_impression_percentage,
+                metrics.all_conversions,
+                metrics.clicks,
+                metrics.conversions,
+                metrics.conversions_value,
+                metrics.cost_micros,
+                metrics.impressions,
+                metrics.phone_calls,
+                metrics.search_budget_lost_absolute_top_impression_share,
+                metrics.search_budget_lost_impression_share,
+                metrics.search_budget_lost_top_impression_share,
+                metrics.search_absolute_top_impression_share,
+                metrics.search_impression_share,
+                metrics.search_rank_lost_absolute_top_impression_share,
+                metrics.search_rank_lost_impression_share,
+                metrics.search_rank_lost_top_impression_share,
+                metrics.search_top_impression_share,
+                metrics.top_impression_percentage
+            FROM
+                campaign
+            WHERE segments.date >= {self.start_date} AND segments.date <= {self.end_date}
+        """
+
+    records_jsonpath = "$.results[*]"
+    name = "stream_campaign_report_by_hour"
+    primary_keys = ["customer__id", "campaign__id", "segments__date", "segments__hour"]
+    replication_key = None
+    schema_filepath = SCHEMAS_DIR / "campaign_report_by_hour.json"
+
 class CityReportStream(ReportsStream):
     """Define custom stream for city-level reporting."""
 
