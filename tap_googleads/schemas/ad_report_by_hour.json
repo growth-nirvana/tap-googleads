@@ -139,20 +139,6 @@
         "null"
       ]
     },
-    "adGroupAd__ad__responsiveSearchAd__descriptions": {
-      "type": [
-        "string",
-        "null"
-      ]
-    },
-    "adGroupAd__ad__responsiveSearchAd__headlines": {
-      "type": [
-        "string",
-        "null"
-      ]
-    },
-    "adGroupAd__ad__responsiveSearchAd__path1": {"type": ["string", "null"]},
-    "adGroupAd__ad__responsiveSearchAd__path2": {"type": ["string", "null"]},
     "adGroupAd__ad__textAd__description1": {
       "type": [
         "string",
@@ -237,6 +223,19 @@
         "null"
       ]
     },
+    "segments__date": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date"
+    },
+    "segments__hour": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
     "metrics__allConversions": {
       "type": [
         "number",
@@ -285,49 +284,6 @@
         "null"
       ]
     },
-    "metrics__videoQuartileP100Rate": {
-      "type": [
-        "number",
-        "null"
-      ]
-    },
-    "metrics__videoQuartileP25Rate": {
-      "type": [
-        "number",
-        "null"
-      ]
-    },
-    "metrics__videoQuartileP50Rate": {
-      "type": [
-        "number",
-        "null"
-      ]
-    },
-    "metrics__videoQuartileP75Rate": {
-      "type": [
-        "number",
-        "null"
-      ]
-    },
-    "metrics__videoViewRate": {
-      "type": [
-        "number",
-        "null"
-      ]
-    },
-    "metrics__videoViews": {
-      "type": [
-        "number",
-        "null"
-      ]
-    },
-    "segments__date": {
-      "type": [
-        "string",
-        "null"
-      ],
-      "format": "date"
-    },
     "run_id": {
       "type": [
         "integer",
@@ -337,3 +293,7 @@
     }
   }
 }
+
+
+
+

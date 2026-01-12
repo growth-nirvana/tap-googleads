@@ -139,3 +139,6 @@ dmypy.json
 # Service Accounts
 service-account.json
 .DS_Store
+
+# SQL command files
+commands.sql

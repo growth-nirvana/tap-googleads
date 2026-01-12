@@ -73,7 +73,7 @@
     },
     "campaign__optimizationScore": {
       "type": [
-        "string",
+        "number",
         "null"
       ]
     },

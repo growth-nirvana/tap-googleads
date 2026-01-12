@@ -15,6 +15,7 @@ from tap_googleads.streams import (
     AdGroupsStream,
     AdPerformanceReportConversionStats,
     AdReportStream,
+    AdReportByHourStream,
     AdStream,
     AdStatsStream,
     AgeReportStream,
@@ -75,6 +76,7 @@ STREAM_TYPES = [
     AccountsStream,
     AdStream,
     AdReportStream,
+    AdReportByHourStream,
     AdGroupsStream,
     AdStatsStream,
     AdGroupsPerformance,
@@ -227,7 +229,7 @@ class TapGoogleAds(Tap):
 
     def setup_mapper(self):
         self._config.setdefault("flattening_enabled", True)
-        self._config.setdefault("flattening_max_depth", 2)
+        self._config.setdefault("flattening_max_depth", 4)
 
         return super().setup_mapper()
 
