@@ -169,6 +169,12 @@
         "null"
       ]
     },
+    "metrics__videoTrueviewViews": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
     "segments__date": {
       "type": [
         "string",
