@@ -1222,9 +1222,15 @@ class SearchQueryReportStream(ReportsStream):
 
     records_jsonpath = "$.results[*]"
     name = "stream_search_query_report"
-    primary_keys = ["customer__id", "campaign__id", "adGroup__id", "searchTermView__searchTerm", "segments__date", "segments__keyword__adGroupCriterion", "segments__keyword__info", "segments__searchTermMatchType"]
+    primary_keys = ["customer__id", "campaign__id", "adGroup__id", "searchTermView__searchTerm", "segments__date", "segments__keyword__adGroupCriterion", "segments__searchTermMatchType"]
     replication_key = None
     schema_filepath = SCHEMAS_DIR / "search_query_report.json"
+
+    def post_process(self, row, context):
+        # Handle case where segments__keyword__info can be blank/null from API
+        if not row.get("segments__keyword__info") or row.get("segments__keyword__info") == "":
+            row["segments__keyword__info"] = None
+        return row
 
 class SearchQueryReportCustomConversionsStream(ReportsStream):
     """Define custom stream for search query conversion reporting."""
