@@ -51,6 +51,10 @@ class AccessibleCustomers(GoogleAdsStream):
             customer_id = customer.split("/")[1]
             customer_ids.append(customer_id.replace("-", ""))
 
+        # Filter by configured customer_ids if provided
+        if self.customer_ids:
+            customer_ids = [cid for cid in customer_ids if cid in self.customer_ids]
+
         return {"customer_ids": customer_ids}
 
 class CustomerHierarchyStream(GoogleAdsStream):

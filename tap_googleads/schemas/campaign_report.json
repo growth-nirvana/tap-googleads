@@ -171,6 +171,7 @@
     },
     "metrics__videoTrueviewViews": {
       "type": [
+        "string",
         "number",
         "null"
       ]
