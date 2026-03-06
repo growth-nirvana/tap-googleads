@@ -46,14 +46,17 @@ class AccessibleCustomers(GoogleAdsStream):
             A child context for each child stream.
 
         """
+        # If customer_ids are explicitly configured, use them directly
+        # This ensures all configured customers are processed even if they're
+        # not in the accessible customers list (e.g., due to login_customer_id scoping)
+        if self.customer_ids:
+            return {"customer_ids": self.customer_ids}
+        
+        # Otherwise, use all accessible customers from the API
         customer_ids = []
         for customer in record.get("resourceNames", []):
             customer_id = customer.split("/")[1]
             customer_ids.append(customer_id.replace("-", ""))
-
-        # Filter by configured customer_ids if provided
-        if self.customer_ids:
-            customer_ids = [cid for cid in customer_ids if cid in self.customer_ids]
 
         return {"customer_ids": customer_ids}
 
@@ -153,6 +156,9 @@ class CustomerHierarchyStream(GoogleAdsStream):
         already_synced = customer_id in self.seen_customer_ids
 
         family_line = self.get_customer_family_line(record.get("resourceName"))
+        # Always include the customer_id itself in the family_line for intersection check
+        if customer_id and customer_id not in family_line:
+            family_line.append(customer_id)
 
         if (is_active_client or is_manager) and not already_synced:
             if not self.customer_ids or len(set(self.customer_ids).intersection(set(family_line))) > 0:
