@@ -388,7 +388,17 @@ class CampaignsStream(ReportsStream):
           campaign.vanity_pharma.vanity_pharma_display_url_mode,
           campaign.vanity_pharma.vanity_pharma_text,
           campaign.video_brand_safety_suitability,
-          campaign.labels
+          campaign.labels,
+          campaign.campaign_budget,
+          campaign_budget.resource_name,
+          campaign_budget.id,
+          campaign_budget.name,
+          campaign_budget.amount_micros,
+          campaign_budget.total_amount_micros,
+          campaign_budget.period,
+          campaign_budget.status,
+          campaign_budget.explicitly_shared,
+          campaign_budget.reference_count
         from
           campaign
         """

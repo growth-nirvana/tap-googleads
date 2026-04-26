@@ -73,7 +73,7 @@
     },
     "campaign__optimizationScore": {
       "type": [
-        "string",
+        "number",
         "null"
       ]
     },
@@ -134,6 +134,66 @@
       "items": {
         "type": "string"
       }
+    },
+    "campaign__campaignBudget": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "campaignBudget__resourceName": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "campaignBudget__id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "campaignBudget__name": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "campaignBudget__amountMicros": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "campaignBudget__totalAmountMicros": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "campaignBudget__period": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "campaignBudget__status": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "campaignBudget__explicitlyShared": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "campaignBudget__referenceCount": {
+      "type": [
+        "string",
+        "null"
+      ]
     },
     "run_id": {
       "type": [
