@@ -52,7 +52,7 @@ class TestTapGoogleadsWithBaseCredentials(unittest.TestCase):
 
         responses.add(
             responses.GET,
-            "https://googleads.googleapis.com/v18/customers:listAccessibleCustomers",
+            "https://googleads.googleapis.com/v22/customers:listAccessibleCustomers",
             json=test_utils.accessible_customer_return_data,
             status=200,
         )
