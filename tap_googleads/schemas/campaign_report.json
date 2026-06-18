@@ -157,13 +157,13 @@
         "null"
       ]
     },
-    "metrics__videoViewRate": {
+    "metrics__videoTrueviewViewRate": {
       "type": [
         "number",
         "null"
       ]
     },
-    "metrics__videoViews": {
+    "metrics__videoTrueviewViews": {
       "type": [
         "number",
         "null"

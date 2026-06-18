@@ -46,10 +46,10 @@
       "metrics__videoQuartileP25Rate": {
         "type": ["number", "null"]
       },
-      "metrics__videoViewRate": {
+      "metrics__videoTrueviewViewRate": {
         "type": ["number", "null"]
       },
-      "metrics__videoViews": {
+      "metrics__videoTrueviewViews": {
         "type": ["number", "null"]
       },
       "segments__date": {
