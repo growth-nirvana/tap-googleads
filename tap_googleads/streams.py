@@ -1317,8 +1317,8 @@ class VideoReportStream(ReportsStream):
           metrics.video_quartile_p75_rate,
           metrics.video_quartile_p50_rate,
           metrics.video_quartile_p25_rate,
-          metrics.video_view_rate,
-          metrics.video_views,
+          metrics.video_trueview_view_rate,
+          metrics.video_trueview_views,
           segments.date
         from
           video
