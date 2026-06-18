@@ -157,13 +157,7 @@
         "null"
       ]
     },
-    "metrics__videoViewRate": {
-      "type": [
-        "number",
-        "null"
-      ]
-    },
-    "metrics__videoViews": {
+    "metrics__videoTrueviewViewRate": {
       "type": [
         "number",
         "null"
@@ -171,7 +165,6 @@
     },
     "metrics__videoTrueviewViews": {
       "type": [
-        "string",
         "number",
         "null"
       ]

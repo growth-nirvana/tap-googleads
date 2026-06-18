@@ -438,6 +438,7 @@ class CampaignReportsStream(ReportsStream):
                 metrics.search_rank_lost_top_impression_share,
                 metrics.search_top_impression_share,
                 metrics.top_impression_percentage,
+                metrics.video_trueview_view_rate,
                 metrics.video_trueview_views,
                 segments.date
             from
@@ -1324,6 +1325,8 @@ class VideoReportStream(ReportsStream):
           metrics.video_quartile_p75_rate,
           metrics.video_quartile_p50_rate,
           metrics.video_quartile_p25_rate,
+          metrics.video_trueview_view_rate,
+          metrics.video_trueview_views,
           segments.date
         from
           video
@@ -1547,6 +1550,7 @@ class AdReportStream(ReportsStream):
             metrics.cost_micros,
             metrics.impressions,
             metrics.view_through_conversions,
+            metrics.video_trueview_view_rate,
             metrics.video_trueview_views,
             segments.date
         FROM
