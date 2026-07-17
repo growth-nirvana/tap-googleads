@@ -281,16 +281,20 @@ class ClickViewReportStream(ReportsStream):
             records = list(super().request_records(context))
 
             if not records:
-                self._increment_stream_state({"date": self.date.isoformat()}, context=self.context)
+                self._increment_stream_state(
+                    {"date": self.date.isoformat()},
+                    context=context,
+                )
 
             yield from records
 
     def validate_response(self, response):
         if response.status_code == HTTPStatus.FORBIDDEN:
             error = response.json()["error"]["details"][0]["errors"][0]
+            customer_id = response.request.url.split("/customers/")[1].split("/")[0]
             msg = (
                 "Click view report not accessible to customer "
-                f"'{self.context['customer_id']}': {error['message']}"
+                f"'{customer_id}': {error['message']}"
             )
             raise ResumableAPIError(msg, response)
 
