@@ -46,6 +46,13 @@ class AccessibleCustomers(GoogleAdsStream):
             A child context for each child stream.
 
         """
+        # If customer_ids are explicitly configured, use them directly
+        # This ensures all configured customers are processed even if they're
+        # not in the accessible customers list (e.g., due to login_customer_id scoping)
+        if self.customer_ids:
+            return {"customer_ids": self.customer_ids}
+        
+        # Otherwise, use all accessible customers from the API
         customer_ids = []
         for customer in record.get("resourceNames", []):
             customer_id = customer.split("/")[1]
@@ -149,6 +156,9 @@ class CustomerHierarchyStream(GoogleAdsStream):
         already_synced = customer_id in self.seen_customer_ids
 
         family_line = self.get_customer_family_line(record.get("resourceName"))
+        # Always include the customer_id itself in the family_line for intersection check
+        if customer_id and customer_id not in family_line:
+            family_line.append(customer_id)
 
         if (is_active_client or is_manager) and not already_synced:
             if not self.customer_ids or len(set(self.customer_ids).intersection(set(family_line))) > 0:
@@ -442,6 +452,8 @@ class CampaignReportsStream(ReportsStream):
                 metrics.search_rank_lost_top_impression_share,
                 metrics.search_top_impression_share,
                 metrics.top_impression_percentage,
+                metrics.video_trueview_view_rate,
+                metrics.video_trueview_views,
                 segments.date
             from
                 campaign
@@ -1235,9 +1247,15 @@ class SearchQueryReportStream(ReportsStream):
 
     records_jsonpath = "$.results[*]"
     name = "stream_search_query_report"
-    primary_keys = ["customer__id", "campaign__id", "adGroup__id", "searchTermView__searchTerm", "segments__date", "segments__keyword__adGroupCriterion", "segments__keyword__info", "segments__searchTermMatchType"]
+    primary_keys = ["customer__id", "campaign__id", "adGroup__id", "searchTermView__searchTerm", "segments__date", "segments__keyword__adGroupCriterion", "segments__searchTermMatchType"]
     replication_key = None
     schema_filepath = SCHEMAS_DIR / "search_query_report.json"
+
+    def post_process(self, row, context):
+        # Handle case where segments__keyword__info can be blank/null from API
+        if not row.get("segments__keyword__info") or row.get("segments__keyword__info") == "":
+            row["segments__keyword__info"] = None
+        return row
 
 class SearchQueryReportCustomConversionsStream(ReportsStream):
     """Define custom stream for search query conversion reporting."""
@@ -1522,6 +1540,10 @@ class AdReportStream(ReportsStream):
             ad_group_ad.ad.id,
             ad_group_ad.ad.legacy_responsive_display_ad.call_to_action_text,
             ad_group_ad.ad.legacy_responsive_display_ad.description,
+            ad_group_ad.ad.responsive_search_ad.descriptions,
+            ad_group_ad.ad.responsive_search_ad.headlines,
+            ad_group_ad.ad.responsive_search_ad.path1,
+            ad_group_ad.ad.responsive_search_ad.path2,
             ad_group_ad.ad.text_ad.description1,
             ad_group_ad.ad.text_ad.description2,
             ad_group_ad.ad.text_ad.headline,
@@ -1542,6 +1564,8 @@ class AdReportStream(ReportsStream):
             metrics.cost_micros,
             metrics.impressions,
             metrics.view_through_conversions,
+            metrics.video_trueview_view_rate,
+            metrics.video_trueview_views,
             segments.date
         FROM
             ad_group_ad
@@ -1552,6 +1576,66 @@ class AdReportStream(ReportsStream):
     primary_keys = ["customer__id", "adGroupAd__ad__id", "adGroup__id", "segments__date"]
     replication_key = None
     schema_filepath = SCHEMAS_DIR / "ad_report.json"
+
+class AdReportByHourStream(ReportsStream):
+    """Ad Report by Hour - Hourly performance data for ads"""
+
+    @property
+    def gaql(self):
+        return f"""
+        SELECT
+            customer.id,
+            ad_group.id,
+            ad_group.name,
+            ad_group.status,
+            ad_group_ad.ad.added_by_google_ads,
+            ad_group_ad.ad.call_ad.description1,
+            ad_group_ad.ad.call_ad.description2,
+            ad_group_ad.ad.device_preference,
+            ad_group_ad.ad.display_url,
+            ad_group_ad.ad.expanded_text_ad.description,
+            ad_group_ad.ad.expanded_text_ad.description2,
+            ad_group_ad.ad.expanded_text_ad.headline_part1,
+            ad_group_ad.ad.expanded_text_ad.headline_part2,
+            ad_group_ad.ad.expanded_text_ad.headline_part3,
+            ad_group_ad.ad.expanded_text_ad.path1,
+            ad_group_ad.ad.expanded_text_ad.path2,
+            ad_group_ad.ad.final_mobile_urls,
+            ad_group_ad.ad.final_urls,
+            ad_group_ad.ad.id,
+            ad_group_ad.ad.legacy_responsive_display_ad.call_to_action_text,
+            ad_group_ad.ad.legacy_responsive_display_ad.description,
+            ad_group_ad.ad.text_ad.description1,
+            ad_group_ad.ad.text_ad.description2,
+            ad_group_ad.ad.text_ad.headline,
+            ad_group_ad.ad.tracking_url_template,
+            ad_group_ad.ad.type,
+            ad_group_ad.ad.url_custom_parameters,
+            ad_group_ad.labels,
+            ad_group_ad.policy_summary.approval_status,
+            ad_group_ad.status,
+            campaign.id,
+            campaign.name,
+            campaign.status,
+            segments.date,
+            segments.hour,
+            metrics.all_conversions,
+            metrics.all_conversions_value,
+            metrics.clicks,
+            metrics.conversions,
+            metrics.conversions_value,
+            metrics.cost_micros,
+            metrics.impressions,
+            metrics.view_through_conversions
+        FROM
+            ad_group_ad
+        WHERE segments.date >= {self.start_date} AND segments.date <= {self.end_date}
+        """
+    records_jsonpath = "$.results[*]"
+    name = "stream_ad_report_by_hour"
+    primary_keys = ["customer__id", "adGroupAd__ad__id", "adGroup__id", "segments__date", "segments__hour"]
+    replication_key = None
+    schema_filepath = SCHEMAS_DIR / "ad_report_by_hour.json"
 
 class AdStatsStream(ReportsStream):
     """Stream for ad stats information from Google Ads."""

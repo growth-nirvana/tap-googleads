@@ -33,7 +33,7 @@
     },
     "metrics__clicks": {
       "type": [
-        "number",
+        "string",
         "null"
       ]
     },
@@ -51,19 +51,19 @@
     },
     "metrics__costMicros": {
       "type": [
-        "number",
+        "string",
         "null"
       ]
     },
     "metrics__impressions": {
       "type": [
-        "number",
+        "string",
         "null"
       ]
     },
     "metrics__phoneCalls": {
       "type": [
-        "number",
+        "string",
         "null"
       ]
     },
@@ -128,6 +128,42 @@
       ]
     },
     "metrics__topImpressionPercentage": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "metrics__videoQuartileP100Rate": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "metrics__videoQuartileP25Rate": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "metrics__videoQuartileP50Rate": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "metrics__videoQuartileP75Rate": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "metrics__videoTrueviewViewRate": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "metrics__videoTrueviewViews": {
       "type": [
         "number",
         "null"

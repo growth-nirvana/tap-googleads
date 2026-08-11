@@ -237,17 +237,12 @@ class GoogleAdsStream(RESTStream):
 
     @cached_property
     def login_customer_id(self):
-        """Always return the top-level MCC account ID."""
-        # If login_customer_id is explicitly set in config, use that
+        """Return the login customer ID if explicitly configured."""
+        # Only return login_customer_id if explicitly set in config
         if self.config.get("login_customer_id"):
             return _sanitise_customer_id(self.config.get("login_customer_id"))
         
-        # Otherwise, use the first customer ID as the MCC account
-        # This assumes the first ID in the list is the MCC account
-        customer_ids = self.customer_ids
-        if customer_ids and len(customer_ids) > 0:
-            return customer_ids[0]
-        
+        # Return None when not configured - don't default to first customer_id
         return None
 
 

@@ -15,6 +15,7 @@ from tap_googleads.streams import (
     AdGroupsStream,
     AdPerformanceReportConversionStats,
     AdReportStream,
+    AdReportByHourStream,
     AdStream,
     AdStatsStream,
     AgeReportStream,
@@ -75,6 +76,7 @@ STREAM_TYPES = [
     AccountsStream,
     AdStream,
     AdReportStream,
+    AdReportByHourStream,
     AdGroupsStream,
     AdStatsStream,
     AdGroupsPerformance,
@@ -217,6 +219,21 @@ class TapGoogleAds(Tap):
             description="Enables the tap's ClickViewReportStream. This requires setting up / permission on your google ads account(s)",
             default=False,
         ),
+        th.Property(
+            "custom_streams",
+            th.ArrayType(
+                th.ObjectType(
+                    th.Property("name", th.StringType, required=True),
+                    th.Property("gaql", th.StringType, required=True),
+                    th.Property("primary_keys", th.ArrayType(th.StringType)),
+                )
+            ),
+            description=(
+                "User-defined GAQL streams. Each entry becomes a full-table "
+                "per-customer report stream. Supports '{start_date}' and "
+                "'{end_date}' placeholders in the GAQL query."
+            ),
+        ),
     ).to_dict()
 
     def __init__(self, *args, **kwargs):
@@ -227,16 +244,27 @@ class TapGoogleAds(Tap):
 
     def setup_mapper(self):
         self._config.setdefault("flattening_enabled", True)
-        self._config.setdefault("flattening_max_depth", 2)
+        self._config.setdefault("flattening_max_depth", 4)
 
         return super().setup_mapper()
 
 
     def discover_streams(self) -> List[Stream]:
         """Return a list of discovered streams."""
-        if self.config["enable_click_view_report_stream"]:
-            STREAM_TYPES.append(ClickViewReportStream)
-        return [stream_class(tap=self) for stream_class in STREAM_TYPES]
+        stream_types = list(STREAM_TYPES)
+        if self.config["enable_click_view_report_stream"] and ClickViewReportStream not in stream_types:
+            stream_types.append(ClickViewReportStream)
+
+        streams: List[Stream] = [cls(tap=self) for cls in stream_types]
+
+        custom_entries = self.config.get("custom_streams") or []
+        if custom_entries:
+            from tap_googleads.custom_streams import build_custom_streams
+
+            for cls in build_custom_streams(custom_entries):
+                streams.append(cls(tap=self))
+
+        return streams
 
     def _validate_config(self, *, raise_errors: bool = True) -> None:
         """Validate configuration.
