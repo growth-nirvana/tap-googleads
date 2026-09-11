@@ -133,11 +133,34 @@ class GoogleAdsStream(RESTStream):
         if "user_agent" in self.config:
             headers["User-Agent"] = self.config.get("user_agent")
         headers["developer-token"] = self.config["developer_token"]
-        
-        if self.login_customer_id:
-            headers["login-customer-id"] = self.login_customer_id
-            
         return headers
+
+    def get_login_customer_id(self, context: Optional[dict] = None) -> Optional[str]:
+        """Return login-customer-id for a request.
+
+        When ``login_customer_id`` is set in config, that value is always used
+        (manager/MCC access). Otherwise the current partition's ``customer_id``
+        is used so unrelated standalone accounts can sync in one job.
+        """
+        if self.config.get("login_customer_id"):
+            return _sanitise_customer_id(self.config.get("login_customer_id"))
+
+        if context and context.get("customer_id"):
+            return _sanitise_customer_id(str(context["customer_id"]))
+
+        customer_ids = self.customer_ids
+        if customer_ids:
+            return customer_ids[0]
+
+        return None
+
+    def prepare_request(self, context, next_page_token):
+        """Attach a context-aware login-customer-id header to each request."""
+        prepared_request = super().prepare_request(context, next_page_token)
+        login_customer_id = self.get_login_customer_id(context)
+        if login_customer_id:
+            prepared_request.headers["login-customer-id"] = login_customer_id
+        return prepared_request
 
     def get_url_params(
         self, context: Optional[dict], next_page_token: Optional[Any]
@@ -235,20 +258,10 @@ class GoogleAdsStream(RESTStream):
 
         return list(map(_sanitise_customer_id, customer_ids))
 
-    @cached_property
+    @property
     def login_customer_id(self):
-        """Always return the top-level MCC account ID."""
-        # If login_customer_id is explicitly set in config, use that
-        if self.config.get("login_customer_id"):
-            return _sanitise_customer_id(self.config.get("login_customer_id"))
-        
-        # Otherwise, use the first customer ID as the MCC account
-        # This assumes the first ID in the list is the MCC account
-        customer_ids = self.customer_ids
-        if customer_ids and len(customer_ids) > 0:
-            return customer_ids[0]
-        
-        return None
+        """Return login-customer-id when no request context is available."""
+        return self.get_login_customer_id(None)
 
 
     def _generate_record_messages(
@@ -319,7 +332,10 @@ class GoogleAdsStream(RESTStream):
         self.logger.info("[DEBUG] Request Details:")
         self.logger.info("[DEBUG] Stream Name: %s", self.name)
         self.logger.info("[DEBUG] Processing customer_id: %s", context.get('customer_id') if context else None)
-        self.logger.info("[DEBUG] Using login_customer_id: %s", self.login_customer_id)
+        self.logger.info(
+            "[DEBUG] Using login_customer_id: %s",
+            self.get_login_customer_id(context),
+        )
         self.logger.info("[DEBUG] URL: %s", url)
         self.logger.info("[DEBUG] Method: %s", method)
         self.logger.info("[DEBUG] Headers: %s", headers)

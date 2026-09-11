@@ -19,6 +19,78 @@ if TYPE_CHECKING:
 SCHEMAS_DIR = Path(__file__).parent / Path("./schemas")
 
 
+def _pick_ad_asset_text(assets, preferred_pinned_field=None):
+    """Return text from RSA/RDA asset lists, preferring a pinned slot when set."""
+    if not assets:
+        return None
+    if preferred_pinned_field:
+        for asset in assets:
+            text = asset.get("text")
+            if text and asset.get("pinnedField") == preferred_pinned_field:
+                return text
+    for asset in assets:
+        text = asset.get("text")
+        if text:
+            return text
+    return None
+
+
+def _resolve_ad_headline(ad: Dict[str, Any]):
+    """Pick a representative headline across common Google Ads ad types."""
+    if not ad:
+        return None
+    text_ad = ad.get("textAd") or {}
+    if text_ad.get("headline"):
+        return text_ad["headline"]
+    expanded_text_ad = ad.get("expandedTextAd") or {}
+    for key in ("headlinePart1", "headlinePart2", "headlinePart3"):
+        if expanded_text_ad.get(key):
+            return expanded_text_ad[key]
+    responsive_search_ad = ad.get("responsiveSearchAd") or {}
+    headline = _pick_ad_asset_text(
+        responsive_search_ad.get("headlines"),
+        preferred_pinned_field="HEADLINE_1",
+    )
+    if headline:
+        return headline
+    responsive_display_ad = ad.get("responsiveDisplayAd") or {}
+    headline = _pick_ad_asset_text(responsive_display_ad.get("headlines"))
+    if headline:
+        return headline
+    legacy_responsive_display_ad = ad.get("legacyResponsiveDisplayAd") or {}
+    return legacy_responsive_display_ad.get("shortHeadline") or legacy_responsive_display_ad.get(
+        "longHeadline"
+    )
+
+
+def _resolve_ad_description(ad: Dict[str, Any]):
+    """Pick a representative description across common Google Ads ad types."""
+    if not ad:
+        return None
+    text_ad = ad.get("textAd") or {}
+    if text_ad.get("description1"):
+        return text_ad["description1"]
+    expanded_text_ad = ad.get("expandedTextAd") or {}
+    if expanded_text_ad.get("description"):
+        return expanded_text_ad["description"]
+    call_ad = ad.get("callAd") or {}
+    if call_ad.get("description1"):
+        return call_ad["description1"]
+    responsive_search_ad = ad.get("responsiveSearchAd") or {}
+    description = _pick_ad_asset_text(
+        responsive_search_ad.get("descriptions"),
+        preferred_pinned_field="DESCRIPTION_1",
+    )
+    if description:
+        return description
+    responsive_display_ad = ad.get("responsiveDisplayAd") or {}
+    description = _pick_ad_asset_text(responsive_display_ad.get("descriptions"))
+    if description:
+        return description
+    legacy_responsive_display_ad = ad.get("legacyResponsiveDisplayAd") or {}
+    return legacy_responsive_display_ad.get("description")
+
+
 class AccessibleCustomers(GoogleAdsStream):
     """Accessible Customers."""
 
@@ -1525,6 +1597,13 @@ class AdReportStream(ReportsStream):
             ad_group_ad.ad.text_ad.description1,
             ad_group_ad.ad.text_ad.description2,
             ad_group_ad.ad.text_ad.headline,
+            ad_group_ad.ad.responsive_search_ad.headlines,
+            ad_group_ad.ad.responsive_search_ad.descriptions,
+            ad_group_ad.ad.responsive_search_ad.path1,
+            ad_group_ad.ad.responsive_search_ad.path2,
+            ad_group_ad.ad.responsive_display_ad.headlines,
+            ad_group_ad.ad.responsive_display_ad.descriptions,
+            ad_group_ad.ad.responsive_display_ad.long_headline,
             ad_group_ad.ad.tracking_url_template,
             ad_group_ad.ad.type,
             ad_group_ad.ad.url_custom_parameters,
@@ -1552,6 +1631,12 @@ class AdReportStream(ReportsStream):
     primary_keys = ["customer__id", "adGroupAd__ad__id", "adGroup__id", "segments__date"]
     replication_key = None
     schema_filepath = SCHEMAS_DIR / "ad_report.json"
+
+    def post_process(self, row, context):
+        ad = row.get("adGroupAd", {}).get("ad", {})
+        row["headline"] = _resolve_ad_headline(ad)
+        row["description"] = _resolve_ad_description(ad)
+        return row
 
 class AdStatsStream(ReportsStream):
     """Stream for ad stats information from Google Ads."""

@@ -157,6 +157,72 @@
         "null"
       ]
     },
+    "adGroupAd__ad__responsiveSearchAd__headlines": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "object"
+      }
+    },
+    "adGroupAd__ad__responsiveSearchAd__descriptions": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "object"
+      }
+    },
+    "adGroupAd__ad__responsiveSearchAd__path1": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "adGroupAd__ad__responsiveSearchAd__path2": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "adGroupAd__ad__responsiveDisplayAd__headlines": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "object"
+      }
+    },
+    "adGroupAd__ad__responsiveDisplayAd__descriptions": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "object"
+      }
+    },
+    "adGroupAd__ad__responsiveDisplayAd__longHeadline": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "headline": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "description": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
     "adGroupAd__ad__trackingUrlTemplate": {
       "type": [
         "string",
@@ -237,7 +303,7 @@
     },
     "metrics__clicks": {
       "type": [
-        "number",
+        "string",
         "null"
       ]
     },
@@ -255,19 +321,19 @@
     },
     "metrics__costMicros": {
       "type": [
-        "number",
+        "string",
         "null"
       ]
     },
     "metrics__impressions": {
       "type": [
-        "number",
+        "string",
         "null"
       ]
     },
     "metrics__viewThroughConversions": {
       "type": [
-        "number",
+        "string",
         "null"
       ]
     },
