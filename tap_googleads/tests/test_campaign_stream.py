@@ -37,6 +37,9 @@ class TestCampaignsStreamBudgetFields(unittest.TestCase):
             "campaign_budget.status",
             "campaign_budget.explicitly_shared",
             "campaign_budget.reference_count",
+            "campaign.start_date_time",
+            "campaign.end_date_time",
+            "customer.video_brand_safety_suitability",
         ):
             with self.subTest(fragment=fragment):
                 self.assertIn(fragment, q)
@@ -57,6 +60,11 @@ class TestCampaignsStreamBudgetFields(unittest.TestCase):
             "campaignBudget__status",
             "campaignBudget__explicitlyShared",
             "campaignBudget__referenceCount",
+            "campaign__startDateTime",
+            "campaign__endDateTime",
+            "campaign__startDate",
+            "campaign__endDate",
+            "customer__videoBrandSafetySuitability",
         ):
             with self.subTest(key=key):
                 self.assertIn(key, props)

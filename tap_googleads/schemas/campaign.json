@@ -44,6 +44,12 @@
       ],
       "format": "date"
     },
+    "campaign__endDateTime": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
     "campaign__experimentType": {
       "type": [
         "string",
@@ -96,6 +102,12 @@
       ],
       "format": "date"
     },
+    "campaign__startDateTime": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
     "campaign__status": {
       "type": [
         "string",
@@ -121,6 +133,12 @@
       ]
     },
     "campaign__videoBrandSafetySuitability": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "customer__videoBrandSafetySuitability": {
       "type": [
         "string",
         "null"
