@@ -366,7 +366,7 @@ class CampaignsStream(ReportsStream):
           campaign.advertising_channel_type,
           campaign.advertising_channel_sub_type,
           campaign.base_campaign,
-          campaign.end_date,
+          campaign.end_date_time,
           campaign.experiment_type,
           campaign.final_url_suffix,
           campaign.frequency_caps,
@@ -374,12 +374,12 @@ class CampaignsStream(ReportsStream):
           campaign.optimization_score,
           campaign.payment_mode,
           campaign.serving_status,
-          campaign.start_date,
+          campaign.start_date_time,
           campaign.status,
           campaign.tracking_url_template,
           campaign.vanity_pharma.vanity_pharma_display_url_mode,
           campaign.vanity_pharma.vanity_pharma_text,
-          campaign.video_brand_safety_suitability,
+          customer.video_brand_safety_suitability,
           campaign.labels
         from
           campaign
@@ -390,6 +390,21 @@ class CampaignsStream(ReportsStream):
     primary_keys = ["campaign__id", "customer__id"]
     replication_key = None
     schema_filepath = SCHEMAS_DIR / "campaign.json"
+
+    def post_process(self, row, context):
+        """Keep legacy campaign date and brand-safety keys after the v23+ renames."""
+        campaign = row.setdefault("campaign", {})
+        for source_key, dest_key in (
+            ("startDateTime", "startDate"),
+            ("endDateTime", "endDate"),
+        ):
+            value = campaign.get(source_key)
+            if isinstance(value, str) and len(value) >= 10:
+                campaign[dest_key] = value[:10]
+        suitability = (row.get("customer") or {}).get("videoBrandSafetySuitability")
+        if suitability:
+            campaign["videoBrandSafetySuitability"] = suitability
+        return row
 
 class CampaignReportsStream(ReportsStream):
     """Define custom stream."""
@@ -1340,8 +1355,6 @@ class AdReportStream(ReportsStream):
             ad_group.name,
             ad_group.status,
             ad_group_ad.ad.added_by_google_ads,
-            ad_group_ad.ad.call_ad.description1,
-            ad_group_ad.ad.call_ad.description2,
             ad_group_ad.ad.device_preference,
             ad_group_ad.ad.display_url,
             ad_group_ad.ad.expanded_text_ad.description,

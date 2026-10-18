@@ -23,6 +23,9 @@
         "type": ["string", "null"],
         "format": "date"
       },
+      "campaign__endDateTime": {
+        "type": ["string", "null"]
+      },
       "campaign__experimentType": {
         "type": ["string", "null"]
       },
@@ -51,6 +54,9 @@
         "type": ["string", "null"],
         "format": "date"
       },
+      "campaign__startDateTime": {
+        "type": ["string", "null"]
+      },
       "campaign__status": {
         "type": ["string", "null"]
       },
@@ -64,6 +70,9 @@
         "type": ["string", "null"]
       },
       "campaign__videoBrandSafetySuitability": {
+        "type": ["string", "null"]
+      },
+      "customer__videoBrandSafetySuitability": {
         "type": ["string", "null"]
       },
       "campaign__labels": {
