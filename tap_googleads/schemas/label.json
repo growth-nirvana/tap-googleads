@@ -19,6 +19,18 @@
         "string"
       ]
     },
+    "label__textLabel__backgroundColor": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "label__textLabel__description": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
     "label__text_label_background_color": {
       "type": [
         "null",
