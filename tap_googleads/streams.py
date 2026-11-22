@@ -908,6 +908,8 @@ class ExpandedTextAdStream(ReportsStream):
           ad_group_ad.ad.expanded_text_ad.path2
         from
           ad_group_ad
+        where
+          ad_group_ad.ad.type = 'EXPANDED_TEXT_AD'
         """
 
     records_jsonpath = "$.results[*]"
@@ -1247,6 +1249,8 @@ class ResponsiveSearchAdStream(ReportsStream):
           ad_group_ad.primary_status
         from
           ad_group_ad
+        where
+          ad_group_ad.ad.type = 'RESPONSIVE_SEARCH_AD'
         """
 
     records_jsonpath = "$.results[*]"
