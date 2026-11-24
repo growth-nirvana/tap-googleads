@@ -53,10 +53,15 @@ class ProxyGoogleAdsAuthenticator(OAuthAuthenticator, metaclass=SingletonMeta):
         try:
             token_response.raise_for_status()
             self.logger.info("OAuth authorization attempt was successful.")
-        except Exception as ex:
+        except Exception:
+            try:
+                body = token_response.json()
+            except ValueError:
+                body = token_response.text[:300]
             raise RuntimeError(
-                f"Failed OAuth login, response was '{token_response.json()}'. {ex}"
-            )
+                f"Failed OAuth login, response was '{body}'. "
+                f"HTTP {token_response.status_code}"
+            ) from None
         token_json = token_response.json()
         self.access_token = token_json["access_token"]
         self.expires_in = token_json["expires_in"]
@@ -71,9 +76,19 @@ class ProxyGoogleAdsAuthenticator(OAuthAuthenticator, metaclass=SingletonMeta):
 # The SingletonMeta metaclass makes your streams reuse the same authenticator instance.
 # If this behaviour interferes with your use-case, you can remove the metaclass.
 class GoogleAdsAuthenticator(OAuthAuthenticator, metaclass=SingletonMeta):
-    """Authenticator class for GoogleAds."""
+    """Authenticator class for GoogleAds: refresh token and client credentials in the body."""
+
+    def __init__(
+        self,
+        stream: RESTStreamBase,
+        auth_endpoint: Optional[str] = None,
+        oauth_scopes: Optional[str] = None,
+        auth_body: Optional[dict] = None,
+    ) -> None:
+        super().__init__(stream=stream, auth_endpoint=auth_endpoint, oauth_scopes=oauth_scopes)
+        self._auth_body = dict(auth_body or {})
 
     @property
     def oauth_request_body(self) -> dict:
-        """Define the OAuth request body for the GoogleAds API."""
-        return {}
+        """The token request's form body (never in the URL, which errors quote)."""
+        return dict(self._auth_body)
