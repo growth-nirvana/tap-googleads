@@ -3,6 +3,7 @@
 from datetime import datetime, timedelta
 from backports.cached_property import cached_property
 from typing import Any, Dict, Optional
+import logging
 import uuid
 
 import requests
@@ -90,24 +91,25 @@ class GoogleAdsStream(RESTStream):
     @cached_property
     def authenticator(self) -> OAuthAuthenticator:
         """Return a new authenticator object."""
+        # The refresh token and client secret go in the POST body, never in the URL: a failed
+        # refresh raises requests' HTTPError, whose text ("... for url: <url>") reaches the logs.
         base_auth_url = "https://www.googleapis.com/oauth2/v4/token"
-        # Silly way to do parameters but it works
 
         client_id = self.config.get("client_id", None)
-        client_secret = self.config.get(
-            "client_secret", None
-        )
-        refresh_token = self.config.get(
-            "refresh_token", None
-        )
-
-        auth_url = base_auth_url + f"?refresh_token={refresh_token}"
-        auth_url = auth_url + f"&client_id={client_id}"
-        auth_url = auth_url + f"&client_secret={client_secret}"
-        auth_url = auth_url + "&grant_type=refresh_token"
+        client_secret = self.config.get("client_secret", None)
+        refresh_token = self.config.get("refresh_token", None)
 
         if client_id and client_secret and refresh_token:
-            return GoogleAdsAuthenticator(stream=self, auth_endpoint=auth_url)
+            return GoogleAdsAuthenticator(
+                stream=self,
+                auth_endpoint=base_auth_url,
+                auth_body={
+                    "refresh_token": refresh_token,
+                    "client_id": client_id,
+                    "client_secret": client_secret,
+                    "grant_type": "refresh_token",
+                },
+            )
 
         auth_body = {}
         auth_headers = {}
@@ -176,15 +178,15 @@ class GoogleAdsStream(RESTStream):
 
     def get_records(self, context):
         """Get records from the stream."""
-        self.logger.info("[DEBUG] Starting get_records for stream: %s", self.name)
+        self.logger.debug("Starting get_records for stream: %s", self.name)
         try:
             for record in super().get_records(context):
                 yield record
         except ResumableAPIError as e:
-            self.logger.error("[DEBUG] ResumableAPIError in get_records: %s", str(e))
+            self.logger.error("ResumableAPIError in get_records: %s", str(e))
             self.logger.warning(e)
         except Exception as e:
-            self.logger.error("[DEBUG] Unexpected error in get_records: %s", str(e))
+            self.logger.error("Unexpected error in get_records: %s", str(e))
             raise
 
     @property
@@ -316,63 +318,41 @@ class GoogleAdsStream(RESTStream):
         return None
 
     def request_records(self, context):
-        """Override to log outgoing HTTP request details for debugging."""
-        self.logger.info("[DEBUG] ===== Starting request_records for stream: %s =====", self.name)
-        
-        # Prepare request details
-        url = self.get_url(context)
-        method = self.rest_method
-        headers = self.http_headers
-        params = self.get_url_params(context, None)
-        body = getattr(self, 'body', None)
-        if callable(body):
-            body = body(context)
-        
-        # Log request details
-        self.logger.info("[DEBUG] Request Details:")
-        self.logger.info("[DEBUG] Stream Name: %s", self.name)
-        self.logger.info("[DEBUG] Processing customer_id: %s", context.get('customer_id') if context else None)
-        self.logger.info(
-            "[DEBUG] Using login_customer_id: %s",
-            self.get_login_customer_id(context),
-        )
-        self.logger.info("[DEBUG] URL: %s", url)
-        self.logger.info("[DEBUG] Method: %s", method)
-        self.logger.info("[DEBUG] Headers: %s", headers)
-        self.logger.info("[DEBUG] Params: %s", params)
-        self.logger.info("[DEBUG] Body: %s", body)
-        
-        # Only try to log GAQL for streams that use it
-        if hasattr(self, 'path') and 'googleAds:search' in self.path:
-            try:
-                self.logger.info("[DEBUG] GAQL Query: %s", self.gaql)
-            except NotImplementedError:
-                self.logger.info("[DEBUG] GAQL Query: Not implemented for this stream")
-        
-        # Make the request
-        self.logger.info("[DEBUG] Making API request...")
-        try:
-            response = super().request_records(context)
-            self.logger.info("[DEBUG] Request completed successfully")
-            
-            # Log response details if available
-            if hasattr(response, 'response'):
-                self.logger.info("[DEBUG] Response Details:")
-                self.logger.info("[DEBUG] Status Code: %s", response.response.status_code)
-                self.logger.info("[DEBUG] Headers: %s", response.response.headers)
+        """Request records, with the request described at DEBUG (never its secrets)."""
+        if self.logger.isEnabledFor(logging.DEBUG):
+            self.logger.debug(
+                "Request: stream=%s customer_id=%s login_customer_id=%s %s %s headers=%s params=%s",
+                self.name,
+                context.get("customer_id") if context else None,
+                self.get_login_customer_id(context),
+                self.rest_method,
+                self.get_url(context),
+                redact_headers(self.http_headers),
+                self.get_url_params(context, None),
+            )
+            if hasattr(self, "path") and "googleAds:search" in self.path:
                 try:
-                    self.logger.info("[DEBUG] Response Body: %s", response.response.json())
-                except:
-                    self.logger.info("[DEBUG] Response Body: %s", response.response.text)
-            else:
-                self.logger.info("[DEBUG] No response object available")
-            
-            return response
+                    self.logger.debug("GAQL query: %s", self.gaql)
+                except NotImplementedError:
+                    pass
+        try:
+            return super().request_records(context)
         except Exception as e:
-            self.logger.error("[DEBUG] Error making request: %s", str(e))
+            self.logger.error("Request failed for stream %s: %s", self.name, str(e))
             raise
-        finally:
-            self.logger.info("[DEBUG] ===== Completed request_records for stream: %s =====", self.name)
+
+
+# Header names whose values are credentials (compared lower-case). login-customer-id is not a
+# secret but is left out of header dumps too.
+SECRET_HEADERS = frozenset(
+    {"developer-token", "authorization", "proxy-authorization", "login-customer-id", "x-goog-api-key", "cookie"}
+)
+
+
+def redact_headers(headers: Optional[dict]) -> dict:
+    """Headers safe to log: credential values replaced by "<redacted>"."""
+    return {k: ("<redacted>" if str(k).lower() in SECRET_HEADERS else v) for k, v in (headers or {}).items()}
+
 
 def _sanitise_customer_id(customer_id: str):
     return customer_id.replace("-", "").strip()
